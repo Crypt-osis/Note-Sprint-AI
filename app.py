@@ -332,8 +332,25 @@ if "result" in st.session_state:
                     st.write(item['definition'])
                     st.markdown('</div>', unsafe_allow_html=True)
 
-    # ---------- TAB 3: QUIZ ----------
-    with tab3:
+    key_terms = result.get("keyTerms", [])
+
+    if key_terms:
+        cols = st.columns(2)
+
+        for i, item in enumerate(key_terms):
+            with cols[i % 2]:
+                st.markdown(f"""
+                <div class="flashcard">
+                    <div class="flashcard-title">{item['term']}</div>
+                    <p>Think of the definition before revealing it.</p>
+                </div>
+                """, unsafe_allow_html=True)
+
+                if st.button(f"Reveal Answer — {item['term']}", key=f"flash_{i}"):
+                    st.success(item["definition"])
+
+    # ---------- TAB 4: QUIZ ----------
+    with tab4:
         st.markdown("### 🧠 Test Yourself")
 
         for i, q in enumerate(result.get("quiz", []), start=1):
@@ -365,8 +382,8 @@ if "result" in st.session_state:
 
             st.markdown("")
 
-    # ---------- TAB 4: EXPORT ----------
-    with tab4:
+    # ---------- TAB 5: EXPORT ----------
+    with tab5:
         st.markdown("### 📄 Export Your Study Pack")
         st.write("Download your AI-generated revision notes as a PDF for offline study.")
 
