@@ -16,7 +16,7 @@ bg_main = "linear-gradient(135deg, #0f172a, #111827)"
 text_color = "white"
 subtext_color = "#d1d5db"
 card_bg = "rgba(255,255,255,0.06)"
-sidebar_bg = "rgba(15,23,42,0.95)
+sidebar_bg = "rgba(15,23,42,0.95)"
 
 # ---------- CUSTOM CSS ----------
 st.markdown(f"""
