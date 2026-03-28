@@ -38,7 +38,7 @@ if st.button("🚀 Generate Study Pack"):
     else:
         with st.spinner("Generating your study pack..."):
             try:
-                result = generate_study_pack(user_text, difficulty, num_questions, provider)
+                result = generate_study_pack(user_text, difficulty, num_questions)
 
                 st.session_state["result"] = result
                 st.success("Study pack generated successfully!")
