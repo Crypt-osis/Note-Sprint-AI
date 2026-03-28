@@ -34,7 +34,6 @@ st.markdown("""
         border: 1px solid rgba(255,255,255,0.12);
         box-shadow: 0 10px 30px rgba(0,0,0,0.25);
         margin-bottom: 1.5rem;
-        <p><i>Built for students who want faster revision and smarter self-testing.</i></p>
     }
 
     .hero h1 {
@@ -150,6 +149,7 @@ st.markdown("""
 st.markdown("""
 <div class="hero">
     <h1>📚 NoteSprint AI</h1>
+    <p><i>Built for students who want faster revision and smarter self-testing.</i></p>
     <p>Turn long, messy notes into a smart revision pack in seconds.</p>
     <p>Get <b>summaries</b>, <b>key terms</b>, <b>MCQ quizzes</b>, and a downloadable <b>PDF</b>.</p>
 </div>
