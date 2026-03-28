@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 from ai_utils import generate_study_pack
 from file_utils import extract_text_from_txt, extract_text_from_pdf
 from pdf_utils import create_pdf
@@ -10,80 +11,96 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ---------- CUSTOM CSS ----------
-st.markdown("""
-<style>
-    /* App background */
-    .stApp {
-        background: linear-gradient(135deg, #0f172a, #111827);
-        color: white;
-    }
+# ---------- THEME TOGGLE ----------
+if "theme_mode" not in st.session_state:
+    st.session_state["theme_mode"] = "Dark"
 
-    /* Main container */
-    .block-container {
+theme_mode = st.sidebar.radio("🎨 Theme", ["Dark", "Light"], index=0)
+
+if theme_mode == "Dark":
+    bg_main = "linear-gradient(135deg, #0f172a, #111827)"
+    text_color = "white"
+    subtext_color = "#d1d5db"
+    card_bg = "rgba(255,255,255,0.06)"
+    sidebar_bg = "rgba(15,23,42,0.95)"
+else:
+    bg_main = "linear-gradient(135deg, #f8fafc, #e2e8f0)"
+    text_color = "#111827"
+    subtext_color = "#374151"
+    card_bg = "rgba(255,255,255,0.75)"
+    sidebar_bg = "rgba(255,255,255,0.95)"
+
+# ---------- CUSTOM CSS ----------
+st.markdown(f"""
+<style>
+    .stApp {{
+        background: {bg_main};
+        color: {text_color};
+    }}
+
+    .block-container {{
         padding-top: 2rem;
         padding-bottom: 2rem;
         max-width: 1200px;
-    }
+    }}
 
-    /* Hero section */
-    .hero {
+    .hero {{
         padding: 2rem 2rem 1.5rem 2rem;
         border-radius: 20px;
         background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(168,85,247,0.18));
         border: 1px solid rgba(255,255,255,0.12);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.18);
         margin-bottom: 1.5rem;
-    }
+    }}
 
-    .hero h1 {
+    .hero h1 {{
         font-size: 2.4rem;
         margin-bottom: 0.5rem;
-        color: white;
-    }
+        color: {text_color};
+    }}
 
-    .hero p {
+    .hero p {{
         font-size: 1.05rem;
-        color: #d1d5db;
+        color: {subtext_color};
         margin-bottom: 0.2rem;
-    }
+    }}
 
-    
+    .custom-card {{
+        background: {card_bg};
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 18px;
+        padding: 1.2rem 1.2rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        backdrop-filter: blur(10px);
+    }}
 
-    .section-title {
+    .section-title {{
         font-size: 1.5rem;
         font-weight: 700;
         margin-bottom: 1rem;
-        color: white;
-    }
+        color: {text_color};
+    }}
 
-    .mini-label {
-        font-size: 0.9rem;
-        color: #cbd5e1;
-        margin-bottom: 0.3rem;
-    }
-
-    /* Quiz box */
-    .quiz-box {
+    .quiz-box {{
         background: rgba(255,255,255,0.05);
         border-left: 4px solid #60a5fa;
         padding: 1rem;
         border-radius: 14px;
         margin-bottom: 1rem;
-    }
+    }}
 
-    .answer-box {
+    .answer-box {{
         background: rgba(34,197,94,0.12);
         border: 1px solid rgba(34,197,94,0.25);
         padding: 0.65rem 0.85rem;
         border-radius: 12px;
         margin-top: 0.7rem;
-        color: #bbf7d0;
+        color: #16a34a;
         font-weight: 600;
-    }
+    }}
 
-    /* Buttons */
-    .stButton > button {
+    .stButton > button {{
         width: 100%;
         border-radius: 14px;
         height: 3.2em;
@@ -93,9 +110,9 @@ st.markdown("""
         background: linear-gradient(90deg, #3b82f6, #8b5cf6);
         color: white;
         box-shadow: 0 8px 20px rgba(59,130,246,0.3);
-    }
+    }}
 
-    .stDownloadButton > button {
+    .stDownloadButton > button {{
         width: 100%;
         border-radius: 14px;
         height: 3em;
@@ -104,35 +121,30 @@ st.markdown("""
         background: linear-gradient(90deg, #10b981, #059669);
         color: white;
         border: none;
-    }
+    }}
 
-    /* Sidebar */
-    section[data-testid="stSidebar"] {
-        background: rgba(15,23,42,0.95);
+    section[data-testid="stSidebar"] {{
+        background: {sidebar_bg};
         border-right: 1px solid rgba(255,255,255,0.08);
-    }
+    }}
 
-    /* Text area */
-    textarea {
+    textarea {{
         border-radius: 16px !important;
-    }
+    }}
 
-    /* File uploader */
-    section[data-testid="stFileUploader"] {
+    section[data-testid="stFileUploader"] {{
         background: rgba(255,255,255,0.03);
         border-radius: 16px;
         padding: 1rem;
         border: 1px dashed rgba(255,255,255,0.15);
-    }
+    }}
 
-    /* Metric cards look */
-    [data-testid="metric-container"] {
-        background: rgba(255,255,255,0.05);
+    [data-testid="metric-container"] {{
+        background: {card_bg};
         border: 1px solid rgba(255,255,255,0.08);
         padding: 1rem;
         border-radius: 16px;
-    }
-
+    }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -140,9 +152,9 @@ st.markdown("""
 st.markdown("""
 <div class="hero">
     <h1>📚 NoteSprint AI</h1>
-    <p><i>Built for students who want faster revision and smarter self-testing.</i></p>
     <p>Turn long, messy notes into a smart revision pack in seconds.</p>
-    <p>Get <b>summaries</b>, <b>key terms</b>, <b>MCQ quizzes</b>, and a downloadable <b>PDF</b>.</p>
+    <p><b>Summaries</b>, <b>key terms</b>, <b>MCQs</b>, and a downloadable <b>PDF</b>.</p>
+    <p><i>Built for students who want faster revision and smarter self-testing.</i></p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -150,6 +162,7 @@ st.markdown("""
 st.sidebar.title("⚙️ Customise Your Study Pack")
 difficulty = st.sidebar.selectbox("Quiz Difficulty", ["Easy", "Medium", "Hard"])
 num_questions = st.sidebar.slider("Number of Questions", 5, 10, 5)
+show_answers = st.sidebar.toggle("Show Answers by Default", value=False)
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("### 💡 Demo Tip")
@@ -161,6 +174,7 @@ st.sidebar.markdown("""
 - Key Terms  
 - AI Quiz Generator  
 - PDF Export  
+- Light / Dark Mode  
 """)
 
 # ---------- INPUT AREA ----------
@@ -182,8 +196,8 @@ with col1:
 
         if st.button("📄 Load Sample Notes"):
             sample_text = """
-Photosynthesis is the process by which green plants prepare their own food using sunlight, carbon dioxide, and water. 
-Chlorophyll, present in leaves, helps absorb sunlight. During this process, oxygen is released as a by-product. 
+Photosynthesis is the process by which green plants prepare their own food using sunlight, carbon dioxide, and water.
+Chlorophyll, present in leaves, helps absorb sunlight. During this process, oxygen is released as a by-product.
 Photosynthesis is essential because it provides food for plants and oxygen for living organisms.
 """
             st.session_state["sample_text"] = sample_text
@@ -230,20 +244,35 @@ This tool helps students:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ---------- GENERATE BUTTON ----------
-st.markdown("")
-
 if st.button("🚀 Generate Study Pack"):
     if not user_text.strip():
         st.warning("Please provide some study material first.")
     else:
-        with st.spinner("Generating your study pack..."):
-            try:
-                result = generate_study_pack(user_text, difficulty, num_questions)
-                st.session_state["result"] = result
-                st.success("Study pack generated successfully!")
+        progress = st.progress(0, text="Starting AI generation...")
 
-            except Exception as e:
-                st.error(f"Something went wrong: {e}")
+        try:
+            time.sleep(0.4)
+            progress.progress(20, text="📚 Reading and understanding notes...")
+            time.sleep(0.8)
+
+            progress.progress(45, text="📝 Creating structured summary...")
+            time.sleep(0.8)
+
+            progress.progress(70, text="📖 Extracting key terms...")
+            time.sleep(0.8)
+
+            progress.progress(85, text="❓ Generating quiz questions...")
+            result = generate_study_pack(user_text, difficulty, num_questions)
+
+            progress.progress(100, text="✅ Study pack ready!")
+            time.sleep(0.5)
+            progress.empty()
+
+            st.session_state["result"] = result
+            st.success("Study pack generated successfully!")
+
+        except Exception as e:
+            st.error(f"Something went wrong: {e}")
 
 # ---------- RESULTS ----------
 if "result" in st.session_state:
@@ -263,57 +292,76 @@ if "result" in st.session_state:
 
     st.markdown("")
 
-    # Summary Section
-    st.markdown('<div class="section-title">📝 Summary</div>', unsafe_allow_html=True)
-    for section in result.get("summary", []):
-        st.markdown('<div class="custom-card">', unsafe_allow_html=True)
-        st.markdown(f"### {section['heading']}")
-        for point in section["points"]:
-            st.markdown(f"- {point}")
-        st.markdown('</div>', unsafe_allow_html=True)
+    # ---------- TABS ----------
+    tab1, tab2, tab3, tab4 = st.tabs(["📝 Summary", "📖 Key Terms", "❓ Quiz", "📄 Export"])
 
-    # Key Terms Section
-    st.markdown('<div class="section-title">📖 Key Terms</div>', unsafe_allow_html=True)
-    key_terms = result.get("keyTerms", [])
+    # ---------- TAB 1: SUMMARY ----------
+    with tab1:
+        for section in result.get("summary", []):
+            st.markdown('<div class="custom-card">', unsafe_allow_html=True)
+            st.markdown(f"### {section['heading']}")
+            for point in section["points"]:
+                st.markdown(f"- {point}")
+            st.markdown('</div>', unsafe_allow_html=True)
 
-    if key_terms:
-        cols = st.columns(2)
-        for i, item in enumerate(key_terms):
-            with cols[i % 2]:
-                st.markdown('<div class="custom-card">', unsafe_allow_html=True)
-                st.markdown(f"### {item['term']}")
-                st.write(item['definition'])
-                st.markdown('</div>', unsafe_allow_html=True)
+    # ---------- TAB 2: KEY TERMS ----------
+    with tab2:
+        key_terms = result.get("keyTerms", [])
+        if key_terms:
+            cols = st.columns(2)
+            for i, item in enumerate(key_terms):
+                with cols[i % 2]:
+                    st.markdown('<div class="custom-card">', unsafe_allow_html=True)
+                    st.markdown(f"### {item['term']}")
+                    st.write(item['definition'])
+                    st.markdown('</div>', unsafe_allow_html=True)
 
-    # Quiz Section
-    st.markdown('<div class="section-title">❓ Quiz</div>', unsafe_allow_html=True)
-    for i, q in enumerate(result.get("quiz", []), start=1):
-        st.markdown(f"""
-        <div class="quiz-box">
-            <h4>Q{i}. {q['question']}</h4>
-        </div>
-        """, unsafe_allow_html=True)
+    # ---------- TAB 3: QUIZ ----------
+    with tab3:
+        st.markdown("### 🧠 Test Yourself")
 
-        for option in q["options"]:
-            st.markdown(f"- {option}")
+        for i, q in enumerate(result.get("quiz", []), start=1):
+            st.markdown(f"""
+            <div class="quiz-box">
+                <h4>Q{i}. {q['question']}</h4>
+            </div>
+            """, unsafe_allow_html=True)
 
-        st.markdown(f"""
-        <div class="answer-box">
-            ✅ Answer: {q['answer']}
-        </div>
-        """, unsafe_allow_html=True)
+            selected = st.radio(
+                f"Choose your answer for Q{i}",
+                q["options"],
+                key=f"quiz_{i}",
+                label_visibility="collapsed"
+            )
+
+            if st.button(f"Check Answer for Q{i}", key=f"check_{i}"):
+                if selected == q["answer"]:
+                    st.success("✅ Correct!")
+                else:
+                    st.error(f"❌ Incorrect. Correct answer: {q['answer']}")
+
+            if show_answers:
+                st.markdown(f"""
+                <div class="answer-box">
+                    ✅ Answer: {q['answer']}
+                </div>
+                """, unsafe_allow_html=True)
+
+            st.markdown("")
+
+    # ---------- TAB 4: EXPORT ----------
+    with tab4:
+        st.markdown("### 📄 Export Your Study Pack")
+        st.write("Download your AI-generated revision notes as a PDF for offline study.")
+
+        pdf_file = create_pdf(result)
+
+        st.download_button(
+            label="📥 Download Revision PDF",
+            data=pdf_file,
+            file_name="study_pack.pdf",
+            mime="application/pdf"
+        )
 
         st.markdown("")
-
-    # PDF Download
-    pdf_file = create_pdf(result)
-
-    st.markdown("---")
-    st.markdown('<div class="section-title">📄 Export</div>', unsafe_allow_html=True)
-
-    st.download_button(
-        label="📥 Download Revision PDF",
-        data=pdf_file,
-        file_name="study_pack.pdf",
-        mime="application/pdf"
-    )
+        st.info("Tip: Download this PDF before your exam for quick revision.")
