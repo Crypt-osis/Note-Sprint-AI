@@ -11,24 +11,12 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ---------- THEME TOGGLE ----------
-if "theme_mode" not in st.session_state:
-    st.session_state["theme_mode"] = "Dark"
-
-theme_mode = st.sidebar.radio("🎨 Theme", ["Dark", "Light"], index=0)
-
-if theme_mode == "Dark":
-    bg_main = "linear-gradient(135deg, #0f172a, #111827)"
-    text_color = "white"
-    subtext_color = "#d1d5db"
-    card_bg = "rgba(255,255,255,0.06)"
-    sidebar_bg = "rgba(15,23,42,0.95)"
-else:
-    bg_main = "linear-gradient(135deg, #f8fafc, #e2e8f0)"
-    text_color = "#111827"
-    subtext_color = "#374151"
-    card_bg = "rgba(255,255,255,0.75)"
-    sidebar_bg = "rgba(255,255,255,0.95)"
+# ---------- FIXED DARK THEME ----------
+bg_main = "linear-gradient(135deg, #0f172a, #111827)"
+text_color = "white"
+subtext_color = "#d1d5db"
+card_bg = "rgba(255,255,255,0.06)"
+sidebar_bg = "rgba(15,23,42,0.95)
 
 # ---------- CUSTOM CSS ----------
 st.markdown(f"""
@@ -190,8 +178,7 @@ st.sidebar.markdown("""
 - Key Terms  
 - Flashcards  
 - AI Quiz Generator  
-- PDF Export  
-- Light / Dark Mode  
+- PDF Export 
 """)
 
 # ---------- INPUT AREA ----------
