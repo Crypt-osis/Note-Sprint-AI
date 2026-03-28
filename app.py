@@ -156,29 +156,42 @@ st.markdown(f"""
 st.markdown("""
 <div class="hero">
     <h1>📚 NoteSprint AI</h1>
-    <p>Turn long, messy notes into a smart revision pack in seconds.</p>
-    <p><b>Summaries</b>, <b>key terms</b>, <b>MCQs</b>, and a downloadable <b>PDF</b>.</p>
-    <p><i>Built for students who want faster revision and smarter self-testing.</i></p>
+    <p>Turn long, messy study notes into a smart revision pack in seconds.</p>
+    <p><b>Summaries</b> • <b>Key Terms</b> • <b>Flashcards</b> • <b>MCQs</b> • <b>PDF Export</b></p>
+    <p><i>Built to help students revise faster and study smarter.</i></p>
 </div>
 """, unsafe_allow_html=True)
 
 # ---------- SIDEBAR ----------
-st.sidebar.title("⚙️ Customise Your Study Pack")
-difficulty = st.sidebar.selectbox("Quiz Difficulty", ["Easy", "Medium", "Hard"])
-num_questions = st.sidebar.slider("Number of Questions", 5, 50, 10)
-show_answers = st.sidebar.toggle("Show Answers by Default", value=False)
+st.sidebar.title("⚙️ Study Pack Settings")
+
+difficulty = st.sidebar.selectbox(
+    "Quiz Difficulty",
+    ["Easy", "Medium", "Hard"]
+)
+
+num_questions = st.sidebar.slider(
+    "Number of Questions",
+    5, 100, 10, step=5
+)
+
+show_answers = st.sidebar.toggle(
+    "Show Answers by Default",
+    value=False
+)
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("### 💡 Demo Tip")
-st.sidebar.info("Use textbook paragraphs or class notes for the best output.")
 
-st.sidebar.markdown("### 🛠 Features")
+st.sidebar.markdown("### 💡 Demo Tip")
+st.sidebar.info("Paste a clean textbook paragraph or lecture notes for the best output.")
+
+st.sidebar.markdown("### 🛠 Included Features")
 st.sidebar.markdown("""
 - Structured Summary  
 - Key Terms  
 - Flashcards  
 - AI Quiz Generator  
-- PDF Export 
+- PDF Export  
 """)
 
 # ---------- INPUT AREA ----------
