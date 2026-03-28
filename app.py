@@ -293,7 +293,7 @@ if "result" in st.session_state:
     st.markdown("")
 
     # ---------- TABS ----------
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(["📝 Summary", "📖 Key Terms", "❓ Quiz", "📄 Export"])
+    tab1, tab2, tab3, tab4 = st.tabs(["📝 Summary", "📖 Key Terms", "❓ Quiz", "📄 Export"])
 
     # ---------- TAB 1: SUMMARY ----------
     with tab1:
