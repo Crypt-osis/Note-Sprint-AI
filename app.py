@@ -194,19 +194,6 @@ with col1:
             placeholder="Paste your class notes, textbook chapter, or study material here..."
         )
 
-        if st.button("📄 Load Sample Notes"):
-            sample_text = """
-Photosynthesis is the process by which green plants prepare their own food using sunlight, carbon dioxide, and water.
-Chlorophyll, present in leaves, helps absorb sunlight. During this process, oxygen is released as a by-product.
-Photosynthesis is essential because it provides food for plants and oxygen for living organisms.
-"""
-            st.session_state["sample_text"] = sample_text
-            st.rerun()
-
-        if "sample_text" in st.session_state:
-            user_text = st.session_state["sample_text"]
-            st.text_area("Loaded Sample Notes:", value=user_text, height=220, disabled=True)
-
     else:
         uploaded_file = st.file_uploader("Upload a TXT or PDF file", type=["txt", "pdf"])
 
