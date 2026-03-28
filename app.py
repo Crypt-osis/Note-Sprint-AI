@@ -74,7 +74,23 @@ st.markdown(f"""
         box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         backdrop-filter: blur(10px);
     }}
-    
+
+    .flashcard {{
+        background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(168,85,247,0.18));
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 20px;
+        padding: 1.4rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        min-height: 180px;
+    }}
+
+    .flashcard-title {{
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin-bottom: 0.8rem;
+    }}
+
     .section-title {{
         font-size: 1.5rem;
         font-weight: 700;
@@ -172,6 +188,7 @@ st.sidebar.markdown("### 🛠 Features")
 st.sidebar.markdown("""
 - Structured Summary  
 - Key Terms  
+- Flashcards  
 - AI Quiz Generator  
 - PDF Export  
 - Light / Dark Mode  
@@ -182,47 +199,16 @@ st.markdown('<div class="section-title">📥 Input Your Study Material</div>', u
 
 col1, col2 = st.columns([2, 1], gap="large")
 
+user_text = ""
+
 with col1:
     input_method = st.radio("Choose input method:", ["Paste Text", "Upload File"], horizontal=True)
-
-    user_text = ""
-
-st.markdown("### Ready to generate your revision pack?")
-if st.button("🚀 Generate Study Pack", use_container_width=True):
-    if not user_text.strip():
-        st.warning("Please provide some study material first.")
-    else:
-        progress = st.progress(0, text="Starting AI generation...")
-
-        try:
-            time.sleep(0.4)
-            progress.progress(20, text="📚 Reading and understanding notes...")
-            time.sleep(0.8)
-
-            progress.progress(45, text="📝 Creating structured summary...")
-            time.sleep(0.8)
-
-            progress.progress(70, text="📖 Extracting key terms...")
-            time.sleep(0.8)
-
-            progress.progress(85, text="❓ Generating quiz questions...")
-            result = generate_study_pack(user_text, difficulty, num_questions)
-
-            progress.progress(100, text="✅ Study pack ready!")
-            time.sleep(0.5)
-            progress.empty()
-
-            st.session_state["result"] = result
-            st.success("Study pack generated successfully!")
-
-        except Exception as e:
-            st.error(f"Something went wrong: {e}")
 
     if input_method == "Paste Text":
         user_text = st.text_area(
             "Paste your notes here:",
             height=300,
-            placeholder="Paste your class notes, textbook chapter, or study material here..."
+            placeholder="Paste your notes, lecture content, textbook chapter, or study material here..."
         )
 
     else:
@@ -238,6 +224,37 @@ if st.button("🚀 Generate Study Pack", use_container_width=True):
                 st.success("File uploaded and text extracted successfully!")
                 with st.expander("Preview Extracted Text"):
                     st.write(user_text[:3000])
+
+    st.markdown("### Ready to generate your revision pack?")
+    if st.button("🚀 Generate Study Pack", use_container_width=True):
+        if not user_text.strip():
+            st.warning("Please provide some study material first.")
+        else:
+            progress = st.progress(0, text="Starting AI generation...")
+
+            try:
+                time.sleep(0.4)
+                progress.progress(20, text="📚 Reading and understanding notes...")
+                time.sleep(0.8)
+
+                progress.progress(45, text="📝 Creating structured summary...")
+                time.sleep(0.8)
+
+                progress.progress(70, text="📖 Extracting key terms...")
+                time.sleep(0.8)
+
+                progress.progress(85, text="❓ Generating quiz questions...")
+                result = generate_study_pack(user_text, difficulty, num_questions)
+
+                progress.progress(100, text="✅ Study pack ready!")
+                time.sleep(0.5)
+                progress.empty()
+
+                st.session_state["result"] = result
+                st.success("Study pack generated successfully!")
+
+            except Exception as e:
+                st.error(f"Something went wrong: {e}")
 
 with col2:
     st.markdown('<div class="custom-card">', unsafe_allow_html=True)
@@ -261,8 +278,6 @@ This tool helps students:
 """)
     st.markdown('</div>', unsafe_allow_html=True)
 
-
-
 # ---------- RESULTS ----------
 if "result" in st.session_state:
     result = st.session_state["result"]
@@ -282,7 +297,9 @@ if "result" in st.session_state:
     st.markdown("")
 
     # ---------- TABS ----------
-    tab1, tab2, tab3, tab4 = st.tabs(["📝 Summary", "📖 Key Terms", "❓ Quiz", "📄 Export"])
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(
+        ["📝 Summary", "📖 Key Terms", "🃏 Flashcards", "❓ Quiz", "📄 Export"]
+    )
 
     # ---------- TAB 1: SUMMARY ----------
     with tab1:
@@ -305,8 +322,29 @@ if "result" in st.session_state:
                     st.write(item['definition'])
                     st.markdown('</div>', unsafe_allow_html=True)
 
-    # ---------- TAB 3: QUIZ ----------
+    # ---------- TAB 3: FLASHCARDS ----------
     with tab3:
+        st.markdown("### 🃏 Flashcard Revision Mode")
+        st.write("Test yourself by revealing each definition only after you think of the answer.")
+
+        key_terms = result.get("keyTerms", [])
+
+        if key_terms:
+            cols = st.columns(2)
+            for i, item in enumerate(key_terms):
+                with cols[i % 2]:
+                    st.markdown(f"""
+                    <div class="flashcard">
+                        <div class="flashcard-title">{item['term']}</div>
+                        <p>Think of the definition before revealing it.</p>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+                    if st.button(f"Reveal Answer — {item['term']}", key=f"flash_{i}"):
+                        st.success(item["definition"])
+
+    # ---------- TAB 4: QUIZ ----------
+    with tab4:
         st.markdown("### 🧠 Test Yourself")
 
         for i, q in enumerate(result.get("quiz", []), start=1):
@@ -338,8 +376,8 @@ if "result" in st.session_state:
 
             st.markdown("")
 
-    # ---------- TAB 4: EXPORT ----------
-    with tab4:
+    # ---------- TAB 5: EXPORT ----------
+    with tab5:
         st.markdown("### 📄 Export Your Study Pack")
         st.write("Download your AI-generated revision notes as a PDF for offline study.")
 
