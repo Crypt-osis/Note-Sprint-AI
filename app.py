@@ -12,7 +12,6 @@ st.write("Upload or paste your notes and generate a smart revision pack instantl
 
 # Sidebar settings
 st.sidebar.header("⚙️ Settings")
-provider = st.sidebar.selectbox("Choose AI Provider", ["Gemini", "OpenAI"])
 difficulty = st.sidebar.selectbox("Quiz Difficulty", ["Easy", "Medium", "Hard"])
 num_questions = st.sidebar.slider("Number of Questions", 5, 10, 5)
 
