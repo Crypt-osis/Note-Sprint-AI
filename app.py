@@ -75,6 +75,22 @@ st.markdown(f"""
         backdrop-filter: blur(10px);
     }}
 
+    .flashcard {
+    background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(168,85,247,0.18));
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 1.4rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    min-height: 180px;
+}
+
+.flashcard-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
+
     .section-title {{
         font-size: 1.5rem;
         font-weight: 700;
@@ -293,7 +309,7 @@ if "result" in st.session_state:
     st.markdown("")
 
     # ---------- TABS ----------
-    tab1, tab2, tab3, tab4 = st.tabs(["📝 Summary", "📖 Key Terms", "❓ Quiz", "📄 Export"])
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(["📝 Summary", "📖 Key Terms", "🃏 Flashcards", "❓ Quiz", "📄 Export"])
 
     # ---------- TAB 1: SUMMARY ----------
     with tab1:
