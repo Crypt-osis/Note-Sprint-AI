@@ -74,23 +74,7 @@ st.markdown(f"""
         box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         backdrop-filter: blur(10px);
     }}
-
-    .flashcard {
-    background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(168,85,247,0.18));
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 20px;
-    padding: 1.4rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    min-height: 180px;
-}
-
-.flashcard-title {
-    font-size: 1.35rem;
-    font-weight: 700;
-    margin-bottom: 0.8rem;
-}
-
+    
     .section-title {{
         font-size: 1.5rem;
         font-weight: 700;
@@ -309,7 +293,7 @@ if "result" in st.session_state:
     st.markdown("")
 
     # ---------- TABS ----------
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(["📝 Summary", "📖 Key Terms", "🃏 Flashcards", "❓ Quiz", "📄 Export"])
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(["📝 Summary", "📖 Key Terms", "❓ Quiz", "📄 Export"])
 
     # ---------- TAB 1: SUMMARY ----------
     with tab1:
@@ -332,25 +316,8 @@ if "result" in st.session_state:
                     st.write(item['definition'])
                     st.markdown('</div>', unsafe_allow_html=True)
 
-    key_terms = result.get("keyTerms", [])
-
-    if key_terms:
-        cols = st.columns(2)
-
-        for i, item in enumerate(key_terms):
-            with cols[i % 2]:
-                st.markdown(f"""
-                <div class="flashcard">
-                    <div class="flashcard-title">{item['term']}</div>
-                    <p>Think of the definition before revealing it.</p>
-                </div>
-                """, unsafe_allow_html=True)
-
-                if st.button(f"Reveal Answer — {item['term']}", key=f"flash_{i}"):
-                    st.success(item["definition"])
-
-    # ---------- TAB 4: QUIZ ----------
-    with tab4:
+    # ---------- TAB 3: QUIZ ----------
+    with tab3:
         st.markdown("### 🧠 Test Yourself")
 
         for i, q in enumerate(result.get("quiz", []), start=1):
@@ -382,8 +349,8 @@ if "result" in st.session_state:
 
             st.markdown("")
 
-    # ---------- TAB 5: EXPORT ----------
-    with tab5:
+    # ---------- TAB 4: EXPORT ----------
+    with tab4:
         st.markdown("### 📄 Export Your Study Pack")
         st.write("Download your AI-generated revision notes as a PDF for offline study.")
 
