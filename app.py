@@ -177,7 +177,7 @@ st.markdown("""
 # ---------- SIDEBAR ----------
 st.sidebar.title("⚙️ Customise Your Study Pack")
 difficulty = st.sidebar.selectbox("Quiz Difficulty", ["Easy", "Medium", "Hard"])
-num_questions = st.sidebar.slider("Number of Questions", 5, 10, 5)
+num_questions = st.sidebar.slider("Number of Questions", 5, 50, 10)
 show_answers = st.sidebar.toggle("Show Answers by Default", value=False)
 
 st.sidebar.markdown("---")
