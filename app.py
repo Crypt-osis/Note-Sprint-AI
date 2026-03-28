@@ -48,16 +48,7 @@ st.markdown("""
         margin-bottom: 0.2rem;
     }
 
-    /* Cards */
-    .custom-card {
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 18px;
-        padding: 1.2rem 1.2rem;
-        margin-bottom: 1rem;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-        backdrop-filter: blur(10px);
-    }
+    
 
     .section-title {
         font-size: 1.5rem;
