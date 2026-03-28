@@ -34,6 +34,7 @@ st.markdown("""
         border: 1px solid rgba(255,255,255,0.12);
         box-shadow: 0 10px 30px rgba(0,0,0,0.25);
         margin-bottom: 1.5rem;
+        <p><i>Built for students who want faster revision and smarter self-testing.</i></p>
     }
 
     .hero h1 {
