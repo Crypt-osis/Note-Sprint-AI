@@ -187,6 +187,37 @@ with col1:
 
     user_text = ""
 
+st.markdown("### Ready to generate your revision pack?")
+if st.button("🚀 Generate Study Pack", use_container_width=True):
+    if not user_text.strip():
+        st.warning("Please provide some study material first.")
+    else:
+        progress = st.progress(0, text="Starting AI generation...")
+
+        try:
+            time.sleep(0.4)
+            progress.progress(20, text="📚 Reading and understanding notes...")
+            time.sleep(0.8)
+
+            progress.progress(45, text="📝 Creating structured summary...")
+            time.sleep(0.8)
+
+            progress.progress(70, text="📖 Extracting key terms...")
+            time.sleep(0.8)
+
+            progress.progress(85, text="❓ Generating quiz questions...")
+            result = generate_study_pack(user_text, difficulty, num_questions)
+
+            progress.progress(100, text="✅ Study pack ready!")
+            time.sleep(0.5)
+            progress.empty()
+
+            st.session_state["result"] = result
+            st.success("Study pack generated successfully!")
+
+        except Exception as e:
+            st.error(f"Something went wrong: {e}")
+
     if input_method == "Paste Text":
         user_text = st.text_area(
             "Paste your notes here:",
@@ -230,36 +261,7 @@ This tool helps students:
 """)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ---------- GENERATE BUTTON ----------
-if st.button("🚀 Generate Study Pack"):
-    if not user_text.strip():
-        st.warning("Please provide some study material first.")
-    else:
-        progress = st.progress(0, text="Starting AI generation...")
 
-        try:
-            time.sleep(0.4)
-            progress.progress(20, text="📚 Reading and understanding notes...")
-            time.sleep(0.8)
-
-            progress.progress(45, text="📝 Creating structured summary...")
-            time.sleep(0.8)
-
-            progress.progress(70, text="📖 Extracting key terms...")
-            time.sleep(0.8)
-
-            progress.progress(85, text="❓ Generating quiz questions...")
-            result = generate_study_pack(user_text, difficulty, num_questions)
-
-            progress.progress(100, text="✅ Study pack ready!")
-            time.sleep(0.5)
-            progress.empty()
-
-            st.session_state["result"] = result
-            st.success("Study pack generated successfully!")
-
-        except Exception as e:
-            st.error(f"Something went wrong: {e}")
 
 # ---------- RESULTS ----------
 if "result" in st.session_state:
