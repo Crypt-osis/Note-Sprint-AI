@@ -11,7 +11,7 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 def generate_study_pack(user_text, difficulty, num_questions):
     genai.configure(api_key=GEMINI_API_KEY)
 
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    model = genai.GenerativeModel("gemini-2.5-flash")
 
     prompt = build_prompt(user_text, difficulty, num_questions)
 
