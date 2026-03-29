@@ -21,291 +21,422 @@ sidebar_bg = "rgba(15,23,42,0.95)"
 # ---------- CUSTOM CSS ----------
 st.markdown(f"""
 <style>
+    /* ---------- GLOBAL ---------- */
     .stApp {{
         background: {bg_main};
         color: {text_color};
+        overflow-x: hidden;
     }}
 
     .block-container {{
         padding-top: 2rem;
         padding-bottom: 2rem;
         max-width: 1200px;
+        animation: pageFade 0.9s ease;
     }}
 
+    /* ---------- FLOATING BACKGROUND BLOBS ---------- */
+    .stApp::before,
+    .stApp::after {{
+        content: "";
+        position: fixed;
+        width: 380px;
+        height: 380px;
+        border-radius: 999px;
+        filter: blur(90px);
+        z-index: -1;
+        opacity: 0.22;
+        pointer-events: none;
+        animation: floatBlob 12s ease-in-out infinite;
+    }}
+
+    .stApp::before {{
+        background: #3b82f6;
+        top: -80px;
+        left: -100px;
+    }}
+
+    .stApp::after {{
+        background: #8b5cf6;
+        bottom: -100px;
+        right: -80px;
+        animation-delay: 3s;
+    }}
+
+    /* ---------- HERO ---------- */
     .hero {{
         position: relative;
-    overflow: hidden;
-    padding: 2.2rem 2rem 1.8rem 2rem;
-    border-radius: 24px;
-    background:
-        radial-gradient(circle at top left, rgba(59,130,246,0.25), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(168,85,247,0.22), transparent 35%),
-        linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.12);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
-    margin-bottom: 1.5rem;
-    animation: fadeInUp 0.8s ease, pulseGlow 4s infinite ease-in-out
+        overflow: hidden;
+        padding: 2.4rem 2.2rem 2rem 2.2rem;
+        border-radius: 28px;
+        background:
+            radial-gradient(circle at top left, rgba(59,130,246,0.25), transparent 35%),
+            radial-gradient(circle at bottom right, rgba(168,85,247,0.22), transparent 35%),
+            linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: 0 18px 50px rgba(0,0,0,0.22);
+        margin-bottom: 1.7rem;
+        animation: fadeInUp 0.9s ease, pulseGlow 4s infinite ease-in-out, floatSoft 6s ease-in-out infinite;
+        backdrop-filter: blur(14px);
     }}
 
     .hero::before {{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -120%;
-    width: 40%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255,255,255,0.12),
-        transparent
-    );
-    animation: shineSweep 4.5s infinite linear;
-}}
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -120%;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255,255,255,0.14),
+            transparent
+        );
+        animation: shineSweep 4.5s infinite linear;
+    }}
+
+    .hero::after {{
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, rgba(255,255,255,0.04), transparent 60%);
+        pointer-events: none;
+    }}
 
     .hero h1 {{
-        font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: 800;
-    background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6, #60a5fa);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientShift 6s ease infinite;
+        font-size: 2.7rem;
+        margin-bottom: 0.55rem;
+        font-weight: 900;
+        letter-spacing: -0.5px;
+        background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6, #60a5fa);
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientShift 6s ease infinite;
     }}
 
     .hero p {{
-        font-size: 1.05rem;
+        font-size: 1.06rem;
         color: {subtext_color};
         margin-bottom: 0.2rem;
+        animation: fadeInUp 1.1s ease;
     }}
 
+    /* ---------- SECTION TITLES ---------- */
+    .section-title {{
+        font-size: 1.55rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        color: {text_color};
+        animation: fadeInUp 0.8s ease;
+    }}
+
+    /* ---------- CARDS ---------- */
     .custom-card {{
         position: relative;
-    overflow: hidden;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 18px;
-    padding: 1rem 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 10px 28px rgba(0,0,0,0.12);
-    animation: fadeInUp 0.7s ease;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+        overflow: hidden;
+        background: rgba(255,255,255,0.055);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        padding: 1rem 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.14);
+        animation: fadeInUp 0.75s ease;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        backdrop-filter: blur(12px);
     }}
 
     .custom-card:hover {{
-    transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 16px 34px rgba(0,0,0,0.18);
+        transform: translateY(-6px) scale(1.015);
+        box-shadow: 0 18px 40px rgba(0,0,0,0.2);
+        border-color: rgba(96,165,250,0.35);
     }}
 
-.custom-card::before {{
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -120%;
-    width: 40%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255,255,255,0.08),
-        transparent
-    );
-    animation: shineSweep 5s infinite linear;
+    .custom-card::before {{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -120%;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255,255,255,0.08),
+            transparent
+        );
+        animation: shineSweep 5s infinite linear;
     }}
 
+    /* ---------- FLASHCARDS ---------- */
     .flashcard {{
-    background:
-        radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(168,85,247,0.16), transparent 35%),
-        rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 22px;
-    padding: 1.3rem;
-    margin-bottom: 1rem;
-    min-height: 170px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-    animation: fadeInUp 0.7s ease;
-    transition: transform 0.22s ease, box-shadow 0.22s ease;
-}}
+        background:
+            radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 35%),
+            radial-gradient(circle at bottom right, rgba(168,85,247,0.16), transparent 35%),
+            rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 24px;
+        padding: 1.35rem;
+        margin-bottom: 1rem;
+        min-height: 180px;
+        box-shadow: 0 14px 34px rgba(0,0,0,0.16);
+        animation: fadeInUp 0.8s ease;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        transform-style: preserve-3d;
+        backdrop-filter: blur(12px);
+    }}
 
-.flashcard:hover {{
-    transform: rotateX(4deg) rotateY(-4deg) translateY(-5px) scale(1.01);
-    box-shadow: 0 20px 38px rgba(59,130,246,0.18);
-}}
+    .flashcard:hover {{
+        transform: perspective(1000px) rotateX(6deg) rotateY(-6deg) translateY(-6px) scale(1.02);
+        box-shadow: 0 22px 45px rgba(59,130,246,0.22);
+        border-color: rgba(139,92,246,0.35);
+    }}
 
     .flashcard-title {{
-        font-size: 1.35rem;
-        font-weight: 700;
+        font-size: 1.4rem;
+        font-weight: 800;
         margin-bottom: 0.8rem;
     }}
 
-    .section-title {{
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        color: {text_color};
-    }}
-
+    /* ---------- QUIZ ---------- */
     .quiz-box {{
         background: rgba(255,255,255,0.05);
         border-left: 4px solid #60a5fa;
         padding: 1rem;
-        border-radius: 14px;
+        border-radius: 16px;
         margin-bottom: 1rem;
+        box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+        animation: fadeInUp 0.7s ease;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }}
+
+    .quiz-box:hover {{
+        transform: translateX(4px);
+        box-shadow: 0 14px 28px rgba(59,130,246,0.16);
     }}
 
     .answer-box {{
         background: rgba(34,197,94,0.12);
         border: 1px solid rgba(34,197,94,0.25);
-        padding: 0.65rem 0.85rem;
-        border-radius: 12px;
+        padding: 0.7rem 0.9rem;
+        border-radius: 14px;
         margin-top: 0.7rem;
-        color: #16a34a;
-        font-weight: 600;
+        color: #22c55e;
+        font-weight: 700;
+        animation: fadeInUp 0.4s ease;
     }}
 
+    /* ---------- BUTTONS ---------- */
     .stButton > button {{
-    width: 100%;
-    border-radius: 16px;
-    height: 3.3em;
-    font-size: 1rem;
-    font-weight: 800;
-    border: none;
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
-    background-size: 250% 250%;
-    color: white;
-    box-shadow: 0 10px 24px rgba(59,130,246,0.28);
-    animation: gradientShift 6s ease infinite, pulseGlow 2.8s infinite ease-in-out;
-    transition: transform 0.16s ease, box-shadow 0.16s ease;
-}}
+        width: 100%;
+        border-radius: 16px;
+        height: 3.3em;
+        font-size: 1rem;
+        font-weight: 800;
+        border: none;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+        background-size: 250% 250%;
+        color: white;
+        box-shadow: 0 10px 24px rgba(59,130,246,0.28);
+        animation: gradientShift 6s ease infinite, pulseGlow 2.8s infinite ease-in-out;
+        transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
+    }}
 
-.stButton > button:hover {{
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 16px 30px rgba(139,92,246,0.35);
-}}
+    .stButton > button:hover {{
+        transform: translateY(-3px) scale(1.015);
+        box-shadow: 0 16px 32px rgba(139,92,246,0.35);
+        filter: brightness(1.05);
+    }}
+
+    .stButton > button:active {{
+        transform: scale(0.985);
+    }}
 
     .stDownloadButton > button {{
-    width: 100%;
-    border-radius: 16px;
-    height: 3em;
-    font-size: 1rem;
-    font-weight: 800;
-    background: linear-gradient(90deg, #10b981, #14b8a6, #06b6d4, #10b981);
-    background-size: 250% 250%;
-    color: white;
-    border: none;
-    box-shadow: 0 10px 24px rgba(16,185,129,0.24);
-    animation: gradientShift 7s ease infinite;
-    transition: transform 0.16s ease, box-shadow 0.16s ease;
-}}
+        width: 100%;
+        border-radius: 16px;
+        height: 3em;
+        font-size: 1rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, #10b981, #14b8a6, #06b6d4, #10b981);
+        background-size: 250% 250%;
+        color: white;
+        border: none;
+        box-shadow: 0 10px 24px rgba(16,185,129,0.24);
+        animation: gradientShift 7s ease infinite, floatSoft 4s ease-in-out infinite;
+        transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }}
 
-.stDownloadButton > button:hover {{
-    transform: translateY(-2px) scale(1.01);
-}}
+    .stDownloadButton > button:hover {{
+        transform: translateY(-3px) scale(1.015);
+        box-shadow: 0 16px 30px rgba(16,185,129,0.32);
+    }}
 
+    /* ---------- SIDEBAR ---------- */
     section[data-testid="stSidebar"] {{
         background: {sidebar_bg};
         border-right: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(14px);
     }}
 
+    section[data-testid="stSidebar"] * {{
+        animation: fadeInUp 0.5s ease;
+    }}
+
+    /* ---------- INPUTS ---------- */
     textarea {{
-        border-radius: 16px !important;
+        border-radius: 18px !important;
+        background: rgba(255,255,255,0.04) !important;
+        transition: all 0.2s ease !important;
+    }}
+
+    textarea:focus {{
+        box-shadow: 0 0 0 2px rgba(96,165,250,0.35) !important;
     }}
 
     section[data-testid="stFileUploader"] {{
-        background: rgba(255,255,255,0.03);
-        border-radius: 16px;
+        background: rgba(255,255,255,0.035);
+        border-radius: 18px;
         padding: 1rem;
-        border: 1px dashed rgba(255,255,255,0.15);
+        border: 1px dashed rgba(255,255,255,0.16);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        animation: fadeInUp 0.8s ease;
     }}
 
+    section[data-testid="stFileUploader"]:hover {{
+        transform: translateY(-3px);
+        box-shadow: 0 14px 30px rgba(59,130,246,0.12);
+    }}
+
+    /* ---------- METRICS ---------- */
     [data-testid="metric-container"] {{
         background: {card_bg};
         border: 1px solid rgba(255,255,255,0.08);
         padding: 1rem;
-        border-radius: 16px;
+        border-radius: 18px;
+        box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        animation: fadeInUp 0.7s ease;
+        backdrop-filter: blur(10px);
+    }}
+
+    [data-testid="metric-container"]:hover {{
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 16px 34px rgba(59,130,246,0.16);
+        border-color: rgba(96,165,250,0.28);
+    }}
+
+    /* ---------- TABS ---------- */
+    .stTabs [data-baseweb="tab-list"] {{
+        gap: 10px;
+        background: rgba(255,255,255,0.035);
+        padding: 0.5rem;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.08);
+        margin-bottom: 1rem;
+        animation: fadeInUp 0.8s ease;
+    }}
+
+    .stTabs [data-baseweb="tab"] {{
+        border-radius: 14px !important;
+        padding: 0.7rem 1rem !important;
+        transition: all 0.22s ease !important;
+    }}
+
+    .stTabs [aria-selected="true"] {{
+        background: linear-gradient(90deg, rgba(59,130,246,0.22), rgba(139,92,246,0.22)) !important;
+        box-shadow: 0 8px 22px rgba(59,130,246,0.14);
+        transform: translateY(-2px);
+    }}
+
+    /* ---------- PROGRESS BAR ---------- */
+    [data-testid="stProgressBar"] > div > div > div {{
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899) !important;
+        background-size: 250% 250%;
+        animation: gradientShift 4s ease infinite;
+        border-radius: 999px;
+    }}
+
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes pageFade {{
+        from {{
+            opacity: 0;
+            transform: translateY(8px);
+        }}
+        to {{
+            opacity: 1;
+            transform: translateY(0);
+        }}
     }}
 
     @keyframes fadeInUp {{
-    from {{
-        opacity: 0;
-        transform: translateY(12px);
+        from {{
+            opacity: 0;
+            transform: translateY(18px);
+        }}
+        to {{
+            opacity: 1;
+            transform: translateY(0);
+        }}
     }}
-    to {{
-        opacity: 1;
-        transform: translateY(0);
-    }}
-}}
 
-@keyframes floatSoft {{
-    0% {{
-        transform: translateY(0px);
+    @keyframes floatSoft {{
+        0% {{
+            transform: translateY(0px);
+        }}
+        50% {{
+            transform: translateY(-5px);
+        }}
+        100% {{
+            transform: translateY(0px);
+        }}
     }}
-    50% {{
-        transform: translateY(-4px);
-    }}
-    100% {{
-        transform: translateY(0px);
-    }}
-}}
 
-@keyframes fadeInUp {{
-    from {{
-        opacity: 0;
-        transform: translateY(18px);
+    @keyframes floatBlob {{
+        0% {{
+            transform: translate(0px, 0px) scale(1);
+        }}
+        50% {{
+            transform: translate(30px, -20px) scale(1.08);
+        }}
+        100% {{
+            transform: translate(0px, 0px) scale(1);
+        }}
     }}
-    to {{
-        opacity: 1;
-        transform: translateY(0);
-    }}
-}}
 
-@keyframes pulseGlow {{
-    0% {{
-        box-shadow: 0 0 0px rgba(139,92,246,0.0), 0 0 0px rgba(59,130,246,0.0);
+    @keyframes pulseGlow {{
+        0% {{
+            box-shadow: 0 0 0px rgba(139,92,246,0.0), 0 0 0px rgba(59,130,246,0.0);
+        }}
+        50% {{
+            box-shadow: 0 0 28px rgba(139,92,246,0.35), 0 0 36px rgba(59,130,246,0.22);
+        }}
+        100% {{
+            box-shadow: 0 0 0px rgba(139,92,246,0.0), 0 0 0px rgba(59,130,246,0.0);
+        }}
     }}
-    50% {{
-        box-shadow: 0 0 28px rgba(139,92,246,0.35), 0 0 36px rgba(59,130,246,0.22);
-    }}
-    100% {{
-        box-shadow: 0 0 0px rgba(139,92,246,0.0), 0 0 0px rgba(59,130,246,0.0);
-    }}
-}}
 
-@keyframes floatSoft {{
-    0% {{
-        transform: translateY(0px);
+    @keyframes gradientShift {{
+        0% {{
+            background-position: 0% 50%;
+        }}
+        50% {{
+            background-position: 100% 50%;
+        }}
+        100% {{
+            background-position: 0% 50%;
+        }}
     }}
-    50% {{
-        transform: translateY(-5px);
-    }}
-    100% {{
-        transform: translateY(0px);
-    }}
-}}
 
-@keyframes gradientShift {{
-    0% {{
-        background-position: 0% 50%;
+    @keyframes shineSweep {{
+        0% {{
+            transform: translateX(-120%);
+        }}
+        100% {{
+            transform: translateX(220%);
+        }}
     }}
-    50% {{
-        background-position: 100% 50%;
-    }}
-    100% {{
-        background-position: 0% 50%;
-    }}
-}}
-
-@keyframes shineSweep {{
-    0% {{
-        transform: translateX(-120%);
-    }}
-    100% {{
-        transform: translateX(220%);
-    }}
-}}
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -313,7 +444,10 @@ st.markdown(f"""
 st.markdown("""
 <div class="hero">
     <h1>📚 NoteSprint AI</h1>
-    <p>AI-powered study notes summariser, flashcards, and quiz generator.</p>
+    <p>Turn messy notes into clean summaries, flashcards, quizzes, and revision PDFs in seconds.</p>
+    <p style="margin-top: 0.6rem; font-size: 0.95rem; opacity: 0.85;">
+        ⚡ Fast • 🎯 Smart • 🧠 Student-focused
+    </p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -380,6 +514,13 @@ with left:
         if not user_text.strip():
             st.warning("Please provide some study material first.")
         else:
+            st.markdown("""
+            <div class="custom-card" style="text-align:center; padding: 1rem;">
+                <h4 style="margin-bottom: 0.4rem;">🤖 AI is building your study pack...</h4>
+                <p style="opacity: 0.85;">Summaries • Flashcards • Quiz • PDF</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
             progress = st.progress(0, text="Starting AI generation...")
 
             try:
