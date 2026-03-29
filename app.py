@@ -56,7 +56,7 @@ st.markdown(f"""
         margin-bottom: 0.2rem;
     }}
 
-    .custom-card {
+    .custom-card {{
     background: rgba(255,255,255,0.055);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 22px;
@@ -65,12 +65,12 @@ st.markdown(f"""
     box-shadow: 0 14px 35px rgba(0,0,0,0.14);
     backdrop-filter: blur(12px);
     transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
+}}
 
-.custom-card:hover {
+.custom-card:hover {{
     transform: translateY(-2px);
     box-shadow: 0 18px 40px rgba(0,0,0,0.18);
-}
+}}
 
     .flashcard {{
         background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(168,85,247,0.18));
