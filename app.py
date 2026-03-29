@@ -61,7 +61,7 @@ else:
     BG_MAIN          = "linear-gradient(135deg, #e8f0fe, #f3e8ff)"
     BLOB_1           = "#93c5fd"
     BLOB_2           = "#c4b5fd"
-    TEXT             = "#0f172a"
+    TEXT             = "#ffffff"
     SUBTEXT          = "#374151"
     SIDEBAR_BG       = "rgba(241,245,249,0.97)"
     CARD_BG          = "rgba(255,255,255,0.85)"
