@@ -73,13 +73,16 @@ st.markdown(f"""
 }}
 
     .flashcard {{
-        background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(168,85,247,0.18));
-        border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 20px;
-        padding: 1.4rem;
-        margin-bottom: 1rem;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        min-height: 180px;
+        background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(168,85,247,0.14), transparent 35%),
+        rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 24px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.16);
+    min-height: 190px;
     }}
 
     .flashcard-title {{
@@ -115,25 +118,32 @@ st.markdown(f"""
 
     .stButton > button {{
         width: 100%;
-        border-radius: 14px;
-        height: 3.2em;
-        font-size: 1rem;
-        font-weight: 700;
-        border: none;
-        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-        color: white;
-        box-shadow: 0 8px 20px rgba(59,130,246,0.3);
+    border-radius: 18px;
+    height: 3.3em;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    color: white;
+    box-shadow: 0 12px 28px rgba(59,130,246,0.28);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
     }}
+
+    .stButton > button:hover {{
+    transform: translateY(-1px);
+    box-shadow: 0 16px 34px rgba(59,130,246,0.34);
+}}
 
     .stDownloadButton > button {{
         width: 100%;
-        border-radius: 14px;
-        height: 3em;
-        font-size: 1rem;
-        font-weight: 700;
-        background: linear-gradient(90deg, #10b981, #059669);
-        color: white;
-        border: none;
+    border-radius: 18px;
+    height: 3.1em;
+    font-size: 1rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #10b981, #059669);
+    color: white;
+    border: none;
+    box-shadow: 0 12px 28px rgba(16,185,129,0.22);
     }}
 
     section[data-testid="stSidebar"] {{
@@ -308,12 +318,22 @@ This tool helps students:
 """)
     st.markdown('</div>', unsafe_allow_html=True)
 
+if "result" not in st.session_state:
+    st.markdown('<div class="section-space"></div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="custom-card">
+        <h3>🚀 Ready to study smarter?</h3>
+        <p>Your AI-generated summary, key terms, flashcards, quiz, and PDF export will appear here after you generate your study pack.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
 # ---------- RESULTS ----------
 if "result" in st.session_state:
     result = st.session_state["result"]
 
     st.markdown("---")
-    st.markdown('<div class="section-title">📊 Your Generated Study Pack</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">📊 Your AI-Generated Study Pack</div>', unsafe_allow_html=True)
+    st.caption("Everything below was generated from your uploaded or pasted study material.")
 
     # Metrics
     m1, m2, m3 = st.columns(3)
@@ -331,6 +351,8 @@ if "result" in st.session_state:
         ["📝 Summary", "📖 Key Terms", "🃏 Flashcards", "❓ Quiz", "📄 Export"]
     )
 
+    st.caption("A clean revision summary generated from your study material.")
+    
     # ---------- TAB 1: SUMMARY ----------
     with tab1:
         for section in result.get("summary", []):
@@ -339,6 +361,8 @@ if "result" in st.session_state:
             for point in section["points"]:
                 st.markdown(f"- {point}")
             st.markdown('</div>', unsafe_allow_html=True)
+
+        st.caption("Important terms and definitions extracted for quick concept revision.")
 
     # ---------- TAB 2: KEY TERMS ----------
     with tab2:
@@ -355,7 +379,7 @@ if "result" in st.session_state:
     # ---------- TAB 3: FLASHCARDS ----------
     with tab3:
         st.markdown("### 🃏 Flashcard Revision Mode")
-        st.write("Test yourself by revealing each definition only after you think of the answer.")
+        st.info("Use active recall: read the term first, think of the answer, then reveal the definition.")
 
         key_terms = result.get("keyTerms", [])
 
@@ -372,6 +396,8 @@ if "result" in st.session_state:
 
                     if st.button(f"Reveal Answer — {item['term']}", key=f"flash_{i}"):
                         st.success(item["definition"])
+
+        st.caption("Test your understanding with AI-generated multiple-choice questions.")
 
     # ---------- TAB 4: QUIZ ----------
     with tab4:
@@ -405,6 +431,8 @@ if "result" in st.session_state:
                 """, unsafe_allow_html=True)
 
             st.markdown("")
+
+        st.caption("Download your complete study pack for offline revision.")
 
     # ---------- TAB 5: EXPORT ----------
     with tab5:
