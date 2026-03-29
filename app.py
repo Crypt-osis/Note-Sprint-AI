@@ -147,6 +147,29 @@ st.markdown(f"""
         padding: 1rem;
         border-radius: 16px;
     }}
+
+    @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatSoft {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
