@@ -179,20 +179,26 @@ show_answers = st.sidebar.toggle(
 st.sidebar.markdown("---")
 st.sidebar.caption("Tip: Use clean lecture notes or textbook text for best results.")
 
-# ---------- INPUT AREA ----------
+# ---------- MAIN WORKSPACE ----------
 st.markdown('<div class="section-title">📥 Input Your Study Material</div>', unsafe_allow_html=True)
 
-col1, col2 = st.columns([2, 1], gap="large")
+left, right = st.columns([2.2, 1], gap="large")
 
 user_text = ""
 
-with col1:
-    input_method = st.radio("Choose input method:", ["Paste Text", "Upload File"], horizontal=True)
+with left:
+    st.markdown('<div class="custom-card">', unsafe_allow_html=True)
+
+    input_method = st.radio(
+        "Choose input method:",
+        ["Paste Text", "Upload File"],
+        horizontal=True
+    )
 
     if input_method == "Paste Text":
         user_text = st.text_area(
             "Paste your notes here:",
-            height=300,
+            height=320,
             placeholder="Paste your notes, lecture content, textbook chapter, or study material here..."
         )
 
@@ -210,7 +216,7 @@ with col1:
                 with st.expander("Preview Extracted Text"):
                     st.write(user_text[:3000])
 
-    st.markdown("### Ready to generate your revision pack?")
+    st.markdown("### Generate your study pack")
     if st.button("🚀 Generate Study Pack", use_container_width=True):
         if not user_text.strip():
             st.warning("Please provide some study material first.")
@@ -241,24 +247,26 @@ with col1:
             except Exception as e:
                 st.error(f"Something went wrong: {e}")
 
-with col2:
+    st.markdown('</div>', unsafe_allow_html=True)
+
+with right:
     st.markdown('<div class="custom-card">', unsafe_allow_html=True)
-    st.markdown("### 📌 Quick Overview")
+    st.markdown("### What this app does")
     st.markdown("""
-This tool helps students:
-- revise faster
-- understand key concepts
-- test themselves instantly
-- download notes for offline study
+- Summarises long notes  
+- Extracts key terms  
+- Creates flashcards  
+- Generates MCQ quizzes  
+- Exports revision PDF  
 """)
     st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="custom-card">', unsafe_allow_html=True)
-    st.markdown("### 🎯 Best Use Cases")
+    st.markdown("### Best for")
     st.markdown("""
 - Exam revision  
 - Last-minute prep  
-- Lecture note cleanup  
+- Lecture notes  
 - Quick self-testing  
 """)
     st.markdown('</div>', unsafe_allow_html=True)
