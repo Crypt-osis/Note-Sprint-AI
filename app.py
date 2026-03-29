@@ -33,12 +33,15 @@ st.markdown(f"""
     }}
 
     .hero {{
-        padding: 2rem 2rem 1.5rem 2rem;
-        border-radius: 20px;
-        background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(168,85,247,0.18));
-        border: 1px solid rgba(255,255,255,0.12);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-        margin-bottom: 1.5rem;
+        padding: 2.5rem 2.5rem 2rem 2.5rem;
+    border-radius: 28px;
+    background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.22), transparent 35%),
+        radial-gradient(circle at top right, rgba(168,85,247,0.18), transparent 35%),
+        linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.22);
+    margin-bottom: 2rem;
     }}
 
     .hero h1 {{
