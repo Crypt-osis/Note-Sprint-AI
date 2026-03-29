@@ -62,7 +62,7 @@ else:
     BLOB_1           = "#93c5fd"
     BLOB_2           = "#c4b5fd"
     TEXT             = "#ffffff"
-    SUBTEXT          = "#374151"
+    SUBTEXT          = "#d1d5db"
     SIDEBAR_BG       = "rgba(241,245,249,0.97)"
     CARD_BG          = "rgba(255,255,255,0.85)"
     CARD_BORDER      = "rgba(99,102,241,0.22)"
