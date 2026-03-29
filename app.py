@@ -216,6 +216,113 @@ st.markdown(f"""
         color: {text_color};
     }}
 
+    /* ---- SUMMARY CARDS ---- */
+    .summary-card {{
+        position: relative;
+        overflow: hidden;
+        background:
+            radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 35%),
+            radial-gradient(circle at bottom right, rgba(168,85,247,0.16), transparent 35%),
+            rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 24px;
+        padding: 1.5rem 1.7rem;
+        margin-bottom: 1.1rem;
+        box-shadow: 0 14px 34px rgba(0,0,0,0.16);
+        animation: fadeInUp 0.8s ease;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        transform-style: preserve-3d;
+        backdrop-filter: blur(12px);
+    }}
+
+    .summary-card:hover {{
+        transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(-6px) scale(1.015);
+        box-shadow: 0 22px 45px rgba(59,130,246,0.22);
+        border-color: rgba(139,92,246,0.35);
+    }}
+
+    .summary-card::before {{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -120%;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(120deg, transparent, rgba(255,255,255,0.09), transparent);
+        animation: shineSweep 5s infinite linear;
+    }}
+
+    .summary-card h3 {{
+        font-size: 1.2rem;
+        font-weight: 800;
+        margin-bottom: 0.75rem;
+        background: linear-gradient(90deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }}
+
+    .summary-card ul {{
+        padding-left: 1.2rem;
+        margin: 0;
+        color: {subtext_color};
+        line-height: 2;
+    }}
+
+    .summary-card ul li {{
+        margin-bottom: 0.2rem;
+    }}
+
+    /* ---- KEY TERM CARDS ---- */
+    .keyterm-card {{
+        position: relative;
+        overflow: hidden;
+        background:
+            radial-gradient(circle at top right, rgba(168,85,247,0.18), transparent 35%),
+            radial-gradient(circle at bottom left, rgba(59,130,246,0.15), transparent 35%),
+            rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 24px;
+        padding: 1.35rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 14px 34px rgba(0,0,0,0.16);
+        animation: fadeInUp 0.8s ease;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        transform-style: preserve-3d;
+        backdrop-filter: blur(12px);
+    }}
+
+    .keyterm-card:hover {{
+        transform: perspective(1000px) rotateX(6deg) rotateY(6deg) translateY(-6px) scale(1.02);
+        box-shadow: 0 22px 45px rgba(139,92,246,0.22);
+        border-color: rgba(96,165,250,0.35);
+    }}
+
+    .keyterm-card::before {{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -120%;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(120deg, transparent, rgba(255,255,255,0.09), transparent);
+        animation: shineSweep 5.5s infinite linear;
+    }}
+
+    .keyterm-card h3 {{
+        font-size: 1.15rem;
+        font-weight: 800;
+        margin-bottom: 0.6rem;
+        background: linear-gradient(90deg, #a78bfa, #f472b6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }}
+
+    .keyterm-card p {{
+        color: {subtext_color};
+        margin: 0;
+        line-height: 1.7;
+    }}
+
     .quiz-box {{
         background: rgba(255,255,255,0.05);
         border-left: 4px solid #60a5fa;
@@ -543,7 +650,7 @@ if "result" in st.session_state:
     with tab1:
         for section in result.get("summary", []):
             st.markdown(f"""
-            <div class="custom-card">
+            <div class="summary-card">
                 <h3>{section['heading']}</h3>
                 <ul>
                     {''.join(f"<li>{p}</li>" for p in section['points'])}
@@ -558,7 +665,7 @@ if "result" in st.session_state:
             for i, item in enumerate(key_terms):
                 with cols[i % 2]:
                     st.markdown(f"""
-                    <div class="custom-card">
+                    <div class="keyterm-card">
                         <h3>{item['term']}</h3>
                         <p>{item['definition']}</p>
                     </div>
