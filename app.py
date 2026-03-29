@@ -156,9 +156,7 @@ st.markdown(f"""
 st.markdown("""
 <div class="hero">
     <h1>📚 NoteSprint AI</h1>
-    <p>Turn long, messy study notes into a smart revision pack in seconds.</p>
-    <p><b>Summaries</b> • <b>Key Terms</b> • <b>Flashcards</b> • <b>MCQs</b> • <b>PDF Export</b></p>
-    <p><i>Built to help students revise faster and study smarter.</i></p>
+    <p>AI-powered study notes summariser, flashcards, and quiz generator.</p>
 </div>
 """, unsafe_allow_html=True)
 
