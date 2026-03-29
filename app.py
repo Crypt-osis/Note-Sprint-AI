@@ -271,6 +271,8 @@ with right:
 """)
     st.markdown('</div>', unsafe_allow_html=True)
 
+st.markdown("<br>", unsafe_allow_html=True)
+
 # ---------- RESULTS ----------
 if "result" in st.session_state:
     result = st.session_state["result"]
