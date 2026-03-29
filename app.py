@@ -60,6 +60,7 @@ st.markdown(f"""
     border-radius: 16px;
     padding: 1rem 1rem;
     margin-bottom: 1rem;
+    animation: fadeInUp 0.7s ease;
     }}
 
     .flashcard {{
@@ -70,6 +71,12 @@ st.markdown(f"""
         margin-bottom: 1rem;
         box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         min-height: 180px;
+        animation: fadeInUp 0.7s ease;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }}
+
+    .flashcard:hover {{
+    transform: translateY(-3px);
     }}
 
     .flashcard-title {{
@@ -113,6 +120,11 @@ st.markdown(f"""
         background: linear-gradient(90deg, #3b82f6, #8b5cf6);
         color: white;
         box-shadow: 0 8px 20px rgba(59,130,246,0.3);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }}
+
+    .stButton > button:hover {{
+    transform: translateY(-1px);
     }}
 
     .stDownloadButton > button {{
