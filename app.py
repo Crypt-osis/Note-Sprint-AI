@@ -64,9 +64,14 @@ st.markdown(f"""
 }}
 
     .hero h1 {{
-        font-size: 2.4rem;
-        margin-bottom: 0.5rem;
-        color: {text_color};
+        font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6, #60a5fa);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 6s ease infinite;
     }}
 
     .hero p {{
@@ -76,29 +81,58 @@ st.markdown(f"""
     }}
 
     .custom-card {{
-        background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
+        position: relative;
+    overflow: hidden;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px;
     padding: 1rem 1rem;
     margin-bottom: 1rem;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.12);
     animation: fadeInUp 0.7s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }}
+
+    .custom-card:hover {{
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 16px 34px rgba(0,0,0,0.18);
+    }}
+
+.custom-card::before {{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.08),
+        transparent
+    );
+    animation: shineSweep 5s infinite linear;
     }}
 
     .flashcard {{
-        background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(168,85,247,0.18));
-        border: 1px solid rgba(255,255,255,0.12);
-        border-radius: 20px;
-        padding: 1.4rem;
-        margin-bottom: 1rem;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        min-height: 180px;
-        animation: fadeInUp 0.7s ease;
-        transition: transform 0.18s ease, box-shadow 0.18s ease;
-    }}
+    background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(168,85,247,0.16), transparent 35%),
+        rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 22px;
+    padding: 1.3rem;
+    margin-bottom: 1rem;
+    min-height: 170px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    animation: fadeInUp 0.7s ease;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}}
 
-    .flashcard:hover {{
-    transform: translateY(-3px);
-    }}
+.flashcard:hover {{
+    transform: rotateX(4deg) rotateY(-4deg) translateY(-5px) scale(1.01);
+    box-shadow: 0 20px 38px rgba(59,130,246,0.18);
+}}
 
     .flashcard-title {{
         font-size: 1.35rem;
@@ -132,32 +166,43 @@ st.markdown(f"""
     }}
 
     .stButton > button {{
-        width: 100%;
-        border-radius: 14px;
-        height: 3.2em;
-        font-size: 1rem;
-        font-weight: 700;
-        border: none;
-        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-        color: white;
-        box-shadow: 0 8px 20px rgba(59,130,246,0.3);
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }}
+    width: 100%;
+    border-radius: 16px;
+    height: 3.3em;
+    font-size: 1rem;
+    font-weight: 800;
+    border: none;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+    background-size: 250% 250%;
+    color: white;
+    box-shadow: 0 10px 24px rgba(59,130,246,0.28);
+    animation: gradientShift 6s ease infinite, pulseGlow 2.8s infinite ease-in-out;
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+}}
 
-    .stButton > button:hover {{
-    transform: translateY(-1px);
-    }}
+.stButton > button:hover {{
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 16px 30px rgba(139,92,246,0.35);
+}}
 
     .stDownloadButton > button {{
-        width: 100%;
-        border-radius: 14px;
-        height: 3em;
-        font-size: 1rem;
-        font-weight: 700;
-        background: linear-gradient(90deg, #10b981, #059669);
-        color: white;
-        border: none;
-    }}
+    width: 100%;
+    border-radius: 16px;
+    height: 3em;
+    font-size: 1rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #10b981, #14b8a6, #06b6d4, #10b981);
+    background-size: 250% 250%;
+    color: white;
+    border: none;
+    box-shadow: 0 10px 24px rgba(16,185,129,0.24);
+    animation: gradientShift 7s ease infinite;
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+}}
+
+.stDownloadButton > button:hover {{
+    transform: translateY(-2px) scale(1.01);
+}}
 
     section[data-testid="stSidebar"] {{
         background: {sidebar_bg};
