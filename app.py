@@ -11,17 +11,14 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ---------- FIXED DARK THEME ----------
 bg_main = "linear-gradient(135deg, #0f172a, #111827)"
 text_color = "white"
 subtext_color = "#d1d5db"
 card_bg = "rgba(255,255,255,0.06)"
 sidebar_bg = "rgba(15,23,42,0.95)"
 
-# ---------- CUSTOM CSS ----------
 st.markdown(f"""
 <style>
-    /* ---------- GLOBAL ---------- */
     .stApp {{
         background: {bg_main};
         color: {text_color};
@@ -35,7 +32,6 @@ st.markdown(f"""
         animation: pageFade 0.9s ease;
     }}
 
-    /* ---------- FLOATING BACKGROUND BLOBS ---------- */
     .stApp::before,
     .stApp::after {{
         content: "";
@@ -63,7 +59,6 @@ st.markdown(f"""
         animation-delay: 3s;
     }}
 
-    /* ---------- HERO ---------- */
     .hero {{
         position: relative;
         overflow: hidden;
@@ -87,21 +82,8 @@ st.markdown(f"""
         left: -120%;
         width: 40%;
         height: 100%;
-        background: linear-gradient(
-            120deg,
-            transparent,
-            rgba(255,255,255,0.14),
-            transparent
-        );
+        background: linear-gradient(120deg, transparent, rgba(255,255,255,0.14), transparent);
         animation: shineSweep 4.5s infinite linear;
-    }}
-
-    .hero::after {{
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at center, rgba(255,255,255,0.04), transparent 60%);
-        pointer-events: none;
     }}
 
     .hero h1 {{
@@ -123,7 +105,6 @@ st.markdown(f"""
         animation: fadeInUp 1.1s ease;
     }}
 
-    /* ---------- SECTION TITLES ---------- */
     .section-title {{
         font-size: 1.55rem;
         font-weight: 800;
@@ -132,19 +113,19 @@ st.markdown(f"""
         animation: fadeInUp 0.8s ease;
     }}
 
-    /* ---------- CARDS ---------- */
     .custom-card {{
         position: relative;
         overflow: hidden;
         background: rgba(255,255,255,0.055);
         border: 1px solid rgba(255,255,255,0.1);
         border-radius: 20px;
-        padding: 1rem 1rem;
+        padding: 1.4rem 1.6rem;
         margin-bottom: 1rem;
         box-shadow: 0 12px 30px rgba(0,0,0,0.14);
         animation: fadeInUp 0.75s ease;
         transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         backdrop-filter: blur(12px);
+        color: {text_color};
     }}
 
     .custom-card:hover {{
@@ -160,16 +141,51 @@ st.markdown(f"""
         left: -120%;
         width: 40%;
         height: 100%;
-        background: linear-gradient(
-            120deg,
-            transparent,
-            rgba(255,255,255,0.08),
-            transparent
-        );
+        background: linear-gradient(120deg, transparent, rgba(255,255,255,0.08), transparent);
         animation: shineSweep 5s infinite linear;
     }}
 
-    /* ---------- FLASHCARDS ---------- */
+    .custom-card h3 {{
+        font-size: 1.15rem;
+        font-weight: 800;
+        margin-bottom: 0.75rem;
+        color: {text_color};
+    }}
+
+    .custom-card ul {{
+        padding-left: 1.2rem;
+        margin: 0;
+        color: {subtext_color};
+        line-height: 2;
+    }}
+
+    .custom-card ul li {{
+        margin-bottom: 0.2rem;
+    }}
+
+    .custom-card p {{
+        color: {subtext_color};
+        margin: 0;
+        line-height: 1.7;
+    }}
+
+    /* ---- LEFT COLUMN CONTAINER (wraps Streamlit widgets) ---- */
+    div[data-testid="stVerticalBlockBorderWrapper"] {{
+        background: rgba(255,255,255,0.055) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        border-radius: 20px !important;
+        backdrop-filter: blur(12px) !important;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.14) !important;
+        padding: 1rem !important;
+        transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+    }}
+
+    div[data-testid="stVerticalBlockBorderWrapper"]:hover {{
+        transform: translateY(-4px) scale(1.008) !important;
+        box-shadow: 0 18px 40px rgba(0,0,0,0.2) !important;
+        border-color: rgba(96,165,250,0.35) !important;
+    }}
+
     .flashcard {{
         background:
             radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 35%),
@@ -197,9 +213,9 @@ st.markdown(f"""
         font-size: 1.4rem;
         font-weight: 800;
         margin-bottom: 0.8rem;
+        color: {text_color};
     }}
 
-    /* ---------- QUIZ ---------- */
     .quiz-box {{
         background: rgba(255,255,255,0.05);
         border-left: 4px solid #60a5fa;
@@ -227,7 +243,6 @@ st.markdown(f"""
         animation: fadeInUp 0.4s ease;
     }}
 
-    /* ---------- BUTTONS ---------- */
     .stButton > button {{
         width: 100%;
         border-radius: 16px;
@@ -273,18 +288,12 @@ st.markdown(f"""
         box-shadow: 0 16px 30px rgba(16,185,129,0.32);
     }}
 
-    /* ---------- SIDEBAR ---------- */
     section[data-testid="stSidebar"] {{
         background: {sidebar_bg};
         border-right: 1px solid rgba(255,255,255,0.08);
         backdrop-filter: blur(14px);
     }}
 
-    section[data-testid="stSidebar"] * {{
-        animation: fadeInUp 0.5s ease;
-    }}
-
-    /* ---------- INPUTS ---------- */
     textarea {{
         border-radius: 18px !important;
         background: rgba(255,255,255,0.04) !important;
@@ -309,7 +318,6 @@ st.markdown(f"""
         box-shadow: 0 14px 30px rgba(59,130,246,0.12);
     }}
 
-    /* ---------- METRICS ---------- */
     [data-testid="metric-container"] {{
         background: {card_bg};
         border: 1px solid rgba(255,255,255,0.08);
@@ -327,7 +335,6 @@ st.markdown(f"""
         border-color: rgba(96,165,250,0.28);
     }}
 
-    /* ---------- TABS ---------- */
     .stTabs [data-baseweb="tab-list"] {{
         gap: 10px;
         background: rgba(255,255,255,0.035);
@@ -350,7 +357,6 @@ st.markdown(f"""
         transform: translateY(-2px);
     }}
 
-    /* ---------- PROGRESS BAR ---------- */
     [data-testid="stProgressBar"] > div > div > div {{
         background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899) !important;
         background-size: 250% 250%;
@@ -358,84 +364,37 @@ st.markdown(f"""
         border-radius: 999px;
     }}
 
-    /* ---------- ANIMATIONS ---------- */
     @keyframes pageFade {{
-        from {{
-            opacity: 0;
-            transform: translateY(8px);
-        }}
-        to {{
-            opacity: 1;
-            transform: translateY(0);
-        }}
+        from {{ opacity: 0; transform: translateY(8px); }}
+        to {{ opacity: 1; transform: translateY(0); }}
     }}
-
     @keyframes fadeInUp {{
-        from {{
-            opacity: 0;
-            transform: translateY(18px);
-        }}
-        to {{
-            opacity: 1;
-            transform: translateY(0);
-        }}
+        from {{ opacity: 0; transform: translateY(18px); }}
+        to {{ opacity: 1; transform: translateY(0); }}
     }}
-
     @keyframes floatSoft {{
-        0% {{
-            transform: translateY(0px);
-        }}
-        50% {{
-            transform: translateY(-5px);
-        }}
-        100% {{
-            transform: translateY(0px);
-        }}
+        0% {{ transform: translateY(0px); }}
+        50% {{ transform: translateY(-5px); }}
+        100% {{ transform: translateY(0px); }}
     }}
-
     @keyframes floatBlob {{
-        0% {{
-            transform: translate(0px, 0px) scale(1);
-        }}
-        50% {{
-            transform: translate(30px, -20px) scale(1.08);
-        }}
-        100% {{
-            transform: translate(0px, 0px) scale(1);
-        }}
+        0% {{ transform: translate(0px, 0px) scale(1); }}
+        50% {{ transform: translate(30px, -20px) scale(1.08); }}
+        100% {{ transform: translate(0px, 0px) scale(1); }}
     }}
-
     @keyframes pulseGlow {{
-        0% {{
-            box-shadow: 0 0 0px rgba(139,92,246,0.0), 0 0 0px rgba(59,130,246,0.0);
-        }}
-        50% {{
-            box-shadow: 0 0 28px rgba(139,92,246,0.35), 0 0 36px rgba(59,130,246,0.22);
-        }}
-        100% {{
-            box-shadow: 0 0 0px rgba(139,92,246,0.0), 0 0 0px rgba(59,130,246,0.0);
-        }}
+        0% {{ box-shadow: 0 0 0px rgba(139,92,246,0.0), 0 0 0px rgba(59,130,246,0.0); }}
+        50% {{ box-shadow: 0 0 28px rgba(139,92,246,0.35), 0 0 36px rgba(59,130,246,0.22); }}
+        100% {{ box-shadow: 0 0 0px rgba(139,92,246,0.0), 0 0 0px rgba(59,130,246,0.0); }}
     }}
-
     @keyframes gradientShift {{
-        0% {{
-            background-position: 0% 50%;
-        }}
-        50% {{
-            background-position: 100% 50%;
-        }}
-        100% {{
-            background-position: 0% 50%;
-        }}
+        0% {{ background-position: 0% 50%; }}
+        50% {{ background-position: 100% 50%; }}
+        100% {{ background-position: 0% 50%; }}
     }}
-
     @keyframes shineSweep {{
-        0% {{
-            transform: translateX(-120%);
-        }}
-        100% {{
-            transform: translateX(220%);
-        }}
+        0% {{ transform: translateX(-120%); }}
+        100% {{ transform: translateX(220%); }}
     }}
 </style>
 """, unsafe_allow_html=True)
@@ -454,20 +413,9 @@ st.markdown("""
 # ---------- SIDEBAR ----------
 st.sidebar.title("⚙️ Settings")
 
-difficulty = st.sidebar.selectbox(
-    "Quiz Difficulty",
-    ["Easy", "Medium", "Hard"]
-)
-
-num_questions = st.sidebar.slider(
-    "Number of Questions",
-    5, 100, 10, step=5
-)
-
-show_answers = st.sidebar.toggle(
-    "Show Answers by Default",
-    value=False
-)
+difficulty = st.sidebar.selectbox("Quiz Difficulty", ["Easy", "Medium", "Hard"])
+num_questions = st.sidebar.slider("Number of Questions", 5, 100, 10, step=5)
+show_answers = st.sidebar.toggle("Show Answers by Default", value=False)
 
 st.sidebar.markdown("---")
 st.sidebar.caption("Tip: Use clean lecture notes or textbook text for best results.")
@@ -480,96 +428,94 @@ left, right = st.columns([2.2, 1], gap="large")
 user_text = ""
 
 with left:
-    st.markdown('<div class="custom-card">', unsafe_allow_html=True)
-
-    input_method = st.radio(
-        "Choose input method:",
-        ["Paste Text", "Upload File"],
-        horizontal=True
-    )
-
-    if input_method == "Paste Text":
-        user_text = st.text_area(
-            "Paste your notes here:",
-            height=320,
-            placeholder="Paste your notes, lecture content, textbook chapter, or study material here..."
+    # st.container(border=True) lets Streamlit widgets sit inside a styled card
+    with st.container(border=True):
+        input_method = st.radio(
+            "Choose input method:",
+            ["Paste Text", "Upload File"],
+            horizontal=True
         )
 
-    else:
-        uploaded_file = st.file_uploader("Upload a TXT or PDF file", type=["txt", "pdf"])
-
-        if uploaded_file:
-            if uploaded_file.type == "text/plain":
-                user_text = extract_text_from_txt(uploaded_file)
-            elif uploaded_file.type == "application/pdf":
-                user_text = extract_text_from_pdf(uploaded_file)
-
-            if user_text:
-                st.success("File uploaded and text extracted successfully!")
-                with st.expander("Preview Extracted Text"):
-                    st.write(user_text[:3000])
-
-    st.markdown("### Generate your study pack")
-    if st.button("🚀 Generate Study Pack", use_container_width=True):
-        if not user_text.strip():
-            st.warning("Please provide some study material first.")
+        if input_method == "Paste Text":
+            user_text = st.text_area(
+                "Paste your notes here:",
+                height=320,
+                placeholder="Paste your notes, lecture content, textbook chapter, or study material here..."
+            )
         else:
-            st.markdown("""
-            <div class="custom-card" style="text-align:center; padding: 1rem;">
-                <h4 style="margin-bottom: 0.4rem;">🤖 AI is building your study pack...</h4>
-                <p style="opacity: 0.85;">Summaries • Flashcards • Quiz • PDF</p>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            progress = st.progress(0, text="Starting AI generation...")
+            uploaded_file = st.file_uploader("Upload a TXT or PDF file", type=["txt", "pdf"])
 
-            try:
-                time.sleep(0.4)
-                progress.progress(20, text="📚 Reading and understanding notes...")
-                time.sleep(0.8)
+            if uploaded_file:
+                if uploaded_file.type == "text/plain":
+                    user_text = extract_text_from_txt(uploaded_file)
+                elif uploaded_file.type == "application/pdf":
+                    user_text = extract_text_from_pdf(uploaded_file)
 
-                progress.progress(45, text="📝 Creating structured summary...")
-                time.sleep(0.8)
+                if user_text:
+                    st.success("File uploaded and text extracted successfully!")
+                    with st.expander("Preview Extracted Text"):
+                        st.write(user_text[:3000])
 
-                progress.progress(70, text="📖 Extracting key terms...")
-                time.sleep(0.8)
+        st.markdown("### Generate your study pack")
+        if st.button("🚀 Generate Study Pack", use_container_width=True):
+            if not user_text.strip():
+                st.warning("Please provide some study material first.")
+            else:
+                st.markdown("""
+                <div class="custom-card" style="text-align:center; padding: 1rem;">
+                    <h4 style="margin-bottom: 0.4rem;">🤖 AI is building your study pack...</h4>
+                    <p>Summaries • Flashcards • Quiz • PDF</p>
+                </div>
+                """, unsafe_allow_html=True)
 
-                progress.progress(85, text="❓ Generating quiz questions...")
-                result = generate_study_pack(user_text, difficulty, num_questions)
+                progress = st.progress(0, text="Starting AI generation...")
 
-                progress.progress(100, text="✅ Study pack ready!")
-                time.sleep(0.5)
-                progress.empty()
+                try:
+                    time.sleep(0.4)
+                    progress.progress(20, text="📚 Reading and understanding notes...")
+                    time.sleep(0.8)
+                    progress.progress(45, text="📝 Creating structured summary...")
+                    time.sleep(0.8)
+                    progress.progress(70, text="📖 Extracting key terms...")
+                    time.sleep(0.8)
+                    progress.progress(85, text="❓ Generating quiz questions...")
 
-                st.session_state["result"] = result
-                st.success("Study pack generated successfully!")
+                    result = generate_study_pack(user_text, difficulty, num_questions)
 
-            except Exception as e:
-                st.error(f"Something went wrong: {e}")
+                    progress.progress(100, text="✅ Study pack ready!")
+                    time.sleep(0.5)
+                    progress.empty()
 
-    st.markdown('</div>', unsafe_allow_html=True)
+                    st.session_state["result"] = result
+                    st.success("Study pack generated successfully!")
 
+                except Exception as e:
+                    st.error(f"Something went wrong: {e}")
+
+# ---------- RIGHT COLUMN — pure HTML cards (no widgets, so divs work fine) ----------
 with right:
-    st.markdown('<div class="custom-card">', unsafe_allow_html=True)
-    st.markdown("### What this app does")
     st.markdown("""
-- Summarises long notes  
-- Extracts key terms  
-- Creates flashcards  
-- Generates MCQ quizzes  
-- Exports revision PDF  
-""")
-    st.markdown('</div>', unsafe_allow_html=True)
+    <div class="custom-card">
+        <h3>🔗 What this app does</h3>
+        <ul>
+            <li>Summarises long notes</li>
+            <li>Extracts key terms</li>
+            <li>Creates flashcards</li>
+            <li>Generates MCQ quizzes</li>
+            <li>Exports revision PDF</li>
+        </ul>
+    </div>
 
-    st.markdown('<div class="custom-card">', unsafe_allow_html=True)
-    st.markdown("### Best for")
-    st.markdown("""
-- Exam revision  
-- Last-minute prep  
-- Lecture notes  
-- Quick self-testing  
-""")
-    st.markdown('</div>', unsafe_allow_html=True)
+    <div class="custom-card">
+        <h3>🎯 Best for</h3>
+        <ul>
+            <li>Exam revision</li>
+            <li>Last-minute prep</li>
+            <li>Lecture notes</li>
+            <li>Quick self-testing</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -580,7 +526,6 @@ if "result" in st.session_state:
     st.markdown("---")
     st.markdown('<div class="section-title">📊 Your Generated Study Pack</div>', unsafe_allow_html=True)
 
-    # Metrics
     m1, m2, m3 = st.columns(3)
     with m1:
         st.metric("Summary Sections", len(result.get("summary", [])))
@@ -591,39 +536,39 @@ if "result" in st.session_state:
 
     st.markdown("")
 
-    # ---------- TABS ----------
     tab1, tab2, tab3, tab4, tab5 = st.tabs(
         ["📝 Summary", "📖 Key Terms", "🃏 Flashcards", "❓ Quiz", "📄 Export"]
     )
 
-    # ---------- TAB 1: SUMMARY ----------
     with tab1:
         for section in result.get("summary", []):
-            st.markdown('<div class="custom-card">', unsafe_allow_html=True)
-            st.markdown(f"### {section['heading']}")
-            for point in section["points"]:
-                st.markdown(f"- {point}")
-            st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown(f"""
+            <div class="custom-card">
+                <h3>{section['heading']}</h3>
+                <ul>
+                    {''.join(f"<li>{p}</li>" for p in section['points'])}
+                </ul>
+            </div>
+            """, unsafe_allow_html=True)
 
-    # ---------- TAB 2: KEY TERMS ----------
     with tab2:
         key_terms = result.get("keyTerms", [])
         if key_terms:
             cols = st.columns(2)
             for i, item in enumerate(key_terms):
                 with cols[i % 2]:
-                    st.markdown('<div class="custom-card">', unsafe_allow_html=True)
-                    st.markdown(f"### {item['term']}")
-                    st.write(item['definition'])
-                    st.markdown('</div>', unsafe_allow_html=True)
+                    st.markdown(f"""
+                    <div class="custom-card">
+                        <h3>{item['term']}</h3>
+                        <p>{item['definition']}</p>
+                    </div>
+                    """, unsafe_allow_html=True)
 
-    # ---------- TAB 3: FLASHCARDS ----------
     with tab3:
         st.markdown("### 🃏 Flashcard Revision Mode")
         st.write("Test yourself by revealing each definition only after you think of the answer.")
 
         key_terms = result.get("keyTerms", [])
-
         if key_terms:
             cols = st.columns(2)
             for i, item in enumerate(key_terms):
@@ -631,17 +576,15 @@ if "result" in st.session_state:
                     st.markdown(f"""
                     <div class="flashcard">
                         <div class="flashcard-title">{item['term']}</div>
-                        <p>Think of the definition before revealing it.</p>
+                        <p style="opacity:0.7;">Think of the definition before revealing it.</p>
                     </div>
                     """, unsafe_allow_html=True)
 
                     if st.button(f"Reveal Answer — {item['term']}", key=f"flash_{i}"):
                         st.success(item["definition"])
 
-    # ---------- TAB 4: QUIZ ----------
     with tab4:
         st.markdown("### 🧠 Test Yourself")
-
         for i, q in enumerate(result.get("quiz", []), start=1):
             st.markdown(f"""
             <div class="quiz-box">
@@ -671,7 +614,6 @@ if "result" in st.session_state:
 
             st.markdown("")
 
-    # ---------- TAB 5: EXPORT ----------
     with tab5:
         st.markdown("### 📄 Export Your Study Pack")
         st.write("Download your AI-generated revision notes as a PDF for offline study.")
