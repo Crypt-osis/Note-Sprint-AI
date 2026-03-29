@@ -153,14 +153,35 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ---------- HERO ----------
-st.markdown("""
-<div class="hero">
-    <h1>📚 NoteSprint AI</h1>
-    <p>Turn long, messy study notes into a smart revision pack in seconds.</p>
-    <p><b>Summaries</b> • <b>Key Terms</b> • <b>Flashcards</b> • <b>MCQs</b> • <b>PDF Export</b></p>
-    <p><i>Built to help students revise faster and study smarter.</i></p>
-</div>
-""", unsafe_allow_html=True)
+st.markdown('<div class="section-space"></div>', unsafe_allow_html=True)
+
+st.markdown('<div class="section-title">✨ How It Works</div>', unsafe_allow_html=True)
+
+step1, step2, step3 = st.columns(3, gap="large")
+
+with step1:
+    st.markdown("""
+    <div class="custom-card">
+        <h3>📥 1. Add Notes</h3>
+        <p>Paste your notes or upload a PDF/TXT file.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with step2:
+    st.markdown("""
+    <div class="custom-card">
+        <h3>🤖 2. Let AI Process</h3>
+        <p>Generate summaries, key terms, flashcards, and quiz questions.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with step3:
+    st.markdown("""
+    <div class="custom-card">
+        <h3>📄 3. Revise Smarter</h3>
+        <p>Study interactively and export everything as a revision PDF.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ---------- SIDEBAR ----------
 st.sidebar.title("⚙️ Study Pack Settings")
