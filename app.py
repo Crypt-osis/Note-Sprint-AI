@@ -39,6 +39,7 @@ st.markdown(f"""
         border: 1px solid rgba(255,255,255,0.12);
         box-shadow: 0 10px 30px rgba(0,0,0,0.18);
         margin-bottom: 1.5rem;
+        animation: fadeInUp 0.7s ease;
     }}
 
     .hero h1 {{
