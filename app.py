@@ -243,13 +243,23 @@ with col1:
 
 with col2:
     st.markdown('<div class="custom-card">', unsafe_allow_html=True)
-    st.markdown("### What this app does")
+    st.markdown("### 📌 Quick Overview")
     st.markdown("""
-- Summarises long notes  
-- Extracts key terms  
-- Creates flashcards  
-- Generates MCQ quizzes  
-- Exports revision PDF  
+This tool helps students:
+- revise faster
+- understand key concepts
+- test themselves instantly
+- download notes for offline study
+""")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown('<div class="custom-card">', unsafe_allow_html=True)
+    st.markdown("### 🎯 Best Use Cases")
+    st.markdown("""
+- Exam revision  
+- Last-minute prep  
+- Lecture note cleanup  
+- Quick self-testing  
 """)
     st.markdown('</div>', unsafe_allow_html=True)
 
