@@ -159,7 +159,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------- SIDEBAR ----------
-st.sidebar.title("⚙️ Study Pack Settings")
+st.sidebar.title("⚙️ Settings")
 
 difficulty = st.sidebar.selectbox(
     "Quiz Difficulty",
@@ -177,18 +177,7 @@ show_answers = st.sidebar.toggle(
 )
 
 st.sidebar.markdown("---")
-
-st.sidebar.markdown("### 💡 Demo Tip")
-st.sidebar.info("Paste a clean textbook paragraph or lecture notes for the best output.")
-
-st.sidebar.markdown("### 🛠 Included Features")
-st.sidebar.markdown("""
-- Structured Summary  
-- Key Terms  
-- Flashcards  
-- AI Quiz Generator  
-- PDF Export  
-""")
+st.sidebar.caption("Tip: Use clean lecture notes or textbook text for best results.")
 
 # ---------- INPUT AREA ----------
 st.markdown('<div class="section-title">📥 Input Your Study Material</div>', unsafe_allow_html=True)
