@@ -33,14 +33,35 @@ st.markdown(f"""
     }}
 
     .hero {{
-        padding: 2rem 2rem 1.5rem 2rem;
-        border-radius: 20px;
-        background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(168,85,247,0.18));
-        border: 1px solid rgba(255,255,255,0.12);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-        margin-bottom: 1.5rem;
-        animation: fadeInUp 0.7s ease;
+        position: relative;
+    overflow: hidden;
+    padding: 2.2rem 2rem 1.8rem 2rem;
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.25), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(168,85,247,0.22), transparent 35%),
+        linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.8s ease, pulseGlow 4s infinite ease-in-out
     }}
+
+    .hero::before {{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.12),
+        transparent
+    );
+    animation: shineSweep 4.5s infinite linear;
+}}
 
     .hero h1 {{
         font-size: 2.4rem;
@@ -181,6 +202,62 @@ st.markdown(f"""
     }}
     100% {{
         transform: translateY(0px);
+    }}
+}}
+
+@keyframes fadeInUp {{
+    from {{
+        opacity: 0;
+        transform: translateY(18px);
+    }}
+    to {{
+        opacity: 1;
+        transform: translateY(0);
+    }}
+}}
+
+@keyframes pulseGlow {{
+    0% {{
+        box-shadow: 0 0 0px rgba(139,92,246,0.0), 0 0 0px rgba(59,130,246,0.0);
+    }}
+    50% {{
+        box-shadow: 0 0 28px rgba(139,92,246,0.35), 0 0 36px rgba(59,130,246,0.22);
+    }}
+    100% {{
+        box-shadow: 0 0 0px rgba(139,92,246,0.0), 0 0 0px rgba(59,130,246,0.0);
+    }}
+}}
+
+@keyframes floatSoft {{
+    0% {{
+        transform: translateY(0px);
+    }
+    50% {{
+        transform: translateY(-5px);
+    }}
+    100% {{
+        transform: translateY(0px);
+    }}
+}}
+
+@keyframes gradientShift {{
+    0% {{
+        background-position: 0% 50%;
+    }}
+    50% {{
+        background-position: 100% 50%;
+    }}
+    100% {{
+        background-position: 0% 50%;
+    }}
+}}
+
+@keyframes shineSweep {{
+    0% {{
+        transform: translateX(-120%);
+    }}
+    100% {{
+        transform: translateX(220%);
     }}
 }}
 
