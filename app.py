@@ -33,15 +33,12 @@ st.markdown(f"""
     }}
 
     .hero {{
-        padding: 2.5rem 2.5rem 2rem 2.5rem;
-    border-radius: 28px;
-    background:
-        radial-gradient(circle at top left, rgba(59,130,246,0.22), transparent 35%),
-        radial-gradient(circle at top right, rgba(168,85,247,0.18), transparent 35%),
-        linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.12);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.22);
-    margin-bottom: 2rem;
+        padding: 2rem 2rem 1.5rem 2rem;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(168,85,247,0.18));
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+        margin-bottom: 1.5rem;
     }}
 
     .hero h1 {{
@@ -57,32 +54,23 @@ st.markdown(f"""
     }}
 
     .custom-card {{
-    background: rgba(255,255,255,0.055);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 22px;
-    padding: 1.25rem 1.25rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 14px 35px rgba(0,0,0,0.14);
-    backdrop-filter: blur(12px);
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
-}}
-
-.custom-card:hover {{
-    transform: translateY(-2px);
-    box-shadow: 0 18px 40px rgba(0,0,0,0.18);
-}}
+        background: {card_bg};
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 18px;
+        padding: 1.2rem 1.2rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        backdrop-filter: blur(10px);
+    }}
 
     .flashcard {{
-        background:
-        radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(168,85,247,0.14), transparent 35%),
-        rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 24px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 16px 40px rgba(0,0,0,0.16);
-    min-height: 190px;
+        background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(168,85,247,0.18));
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 20px;
+        padding: 1.4rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        min-height: 180px;
     }}
 
     .flashcard-title {{
@@ -118,32 +106,25 @@ st.markdown(f"""
 
     .stButton > button {{
         width: 100%;
-    border-radius: 18px;
-    height: 3.3em;
-    font-size: 1rem;
-    font-weight: 700;
-    border: none;
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-    color: white;
-    box-shadow: 0 12px 28px rgba(59,130,246,0.28);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+        border-radius: 14px;
+        height: 3.2em;
+        font-size: 1rem;
+        font-weight: 700;
+        border: none;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        color: white;
+        box-shadow: 0 8px 20px rgba(59,130,246,0.3);
     }}
-
-    .stButton > button:hover {{
-    transform: translateY(-1px);
-    box-shadow: 0 16px 34px rgba(59,130,246,0.34);
-}}
 
     .stDownloadButton > button {{
         width: 100%;
-    border-radius: 18px;
-    height: 3.1em;
-    font-size: 1rem;
-    font-weight: 700;
-    background: linear-gradient(90deg, #10b981, #059669);
-    color: white;
-    border: none;
-    box-shadow: 0 12px 28px rgba(16,185,129,0.22);
+        border-radius: 14px;
+        height: 3em;
+        font-size: 1rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #10b981, #059669);
+        color: white;
+        border: none;
     }}
 
     section[data-testid="stSidebar"] {{
@@ -172,35 +153,14 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ---------- HERO ----------
-st.markdown('<div class="section-space"></div>', unsafe_allow_html=True)
-
-st.markdown('<div class="section-title">✨ How It Works</div>', unsafe_allow_html=True)
-
-step1, step2, step3 = st.columns(3, gap="large")
-
-with step1:
-    st.markdown("""
-    <div class="custom-card">
-        <h3>📥 1. Add Notes</h3>
-        <p>Paste your notes or upload a PDF/TXT file.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with step2:
-    st.markdown("""
-    <div class="custom-card">
-        <h3>🤖 2. Let AI Process</h3>
-        <p>Generate summaries, key terms, flashcards, and quiz questions.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with step3:
-    st.markdown("""
-    <div class="custom-card">
-        <h3>📄 3. Revise Smarter</h3>
-        <p>Study interactively and export everything as a revision PDF.</p>
-    </div>
-    """, unsafe_allow_html=True)
+st.markdown("""
+<div class="hero">
+    <h1>📚 NoteSprint AI</h1>
+    <p>Turn long, messy study notes into a smart revision pack in seconds.</p>
+    <p><b>Summaries</b> • <b>Key Terms</b> • <b>Flashcards</b> • <b>MCQs</b> • <b>PDF Export</b></p>
+    <p><i>Built to help students revise faster and study smarter.</i></p>
+</div>
+""", unsafe_allow_html=True)
 
 # ---------- SIDEBAR ----------
 st.sidebar.title("⚙️ Study Pack Settings")
@@ -318,22 +278,12 @@ This tool helps students:
 """)
     st.markdown('</div>', unsafe_allow_html=True)
 
-if "result" not in st.session_state:
-    st.markdown('<div class="section-space"></div>', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="custom-card">
-        <h3>🚀 Ready to study smarter?</h3>
-        <p>Your AI-generated summary, key terms, flashcards, quiz, and PDF export will appear here after you generate your study pack.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
 # ---------- RESULTS ----------
 if "result" in st.session_state:
     result = st.session_state["result"]
 
     st.markdown("---")
-    st.markdown('<div class="section-title">📊 Your AI-Generated Study Pack</div>', unsafe_allow_html=True)
-    st.caption("Everything below was generated from your uploaded or pasted study material.")
+    st.markdown('<div class="section-title">📊 Your Generated Study Pack</div>', unsafe_allow_html=True)
 
     # Metrics
     m1, m2, m3 = st.columns(3)
@@ -351,8 +301,6 @@ if "result" in st.session_state:
         ["📝 Summary", "📖 Key Terms", "🃏 Flashcards", "❓ Quiz", "📄 Export"]
     )
 
-    st.caption("A clean revision summary generated from your study material.")
-    
     # ---------- TAB 1: SUMMARY ----------
     with tab1:
         for section in result.get("summary", []):
@@ -361,8 +309,6 @@ if "result" in st.session_state:
             for point in section["points"]:
                 st.markdown(f"- {point}")
             st.markdown('</div>', unsafe_allow_html=True)
-
-        st.caption("Important terms and definitions extracted for quick concept revision.")
 
     # ---------- TAB 2: KEY TERMS ----------
     with tab2:
@@ -379,7 +325,7 @@ if "result" in st.session_state:
     # ---------- TAB 3: FLASHCARDS ----------
     with tab3:
         st.markdown("### 🃏 Flashcard Revision Mode")
-        st.info("Use active recall: read the term first, think of the answer, then reveal the definition.")
+        st.write("Test yourself by revealing each definition only after you think of the answer.")
 
         key_terms = result.get("keyTerms", [])
 
@@ -396,8 +342,6 @@ if "result" in st.session_state:
 
                     if st.button(f"Reveal Answer — {item['term']}", key=f"flash_{i}"):
                         st.success(item["definition"])
-
-        st.caption("Test your understanding with AI-generated multiple-choice questions.")
 
     # ---------- TAB 4: QUIZ ----------
     with tab4:
@@ -431,8 +375,6 @@ if "result" in st.session_state:
                 """, unsafe_allow_html=True)
 
             st.markdown("")
-
-        st.caption("Download your complete study pack for offline revision.")
 
     # ---------- TAB 5: EXPORT ----------
     with tab5:
