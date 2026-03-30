@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────
-#  THEME STATE  (must come before any CSS)
+#  THEME STATE
 # ─────────────────────────────────────────────
 if "theme" not in st.session_state:
     st.session_state["theme"] = "dark"
@@ -20,7 +20,7 @@ if "theme" not in st.session_state:
 IS_DARK = st.session_state["theme"] == "dark"
 
 # ─────────────────────────────────────────────
-#  THEME TOKENS  — picked in Python, injected into CSS as plain values
+#  THEME TOKENS
 # ─────────────────────────────────────────────
 if IS_DARK:
     BG_MAIN          ="linear-gradient(315deg, #04010F, #302B38)"
@@ -28,7 +28,6 @@ if IS_DARK:
     BLOB_2           = "#8b5cf6"
     TEXT             = "#ffffff"
     SUBTEXT          = "#d1d5db"
-    SIDEBAR_BG       = "rgba(15,23,42,0.95)"
     CARD_BG          = "rgba(255,255,255,0.055)"
     CARD_BORDER      = "rgba(255,255,255,0.1)"
     CARD_SHADOW      = "0 12px 30px rgba(0,0,0,0.14)"
@@ -43,7 +42,6 @@ if IS_DARK:
     FLASH_BASE       = "rgba(255,255,255,0.05)"
     FLASH_BORDER     = "rgba(255,255,255,0.1)"
     QUIZ_BG          = "rgba(255,255,255,0.05)"
-    INPUT_BG         = "rgba(255,255,255,0.04)"
     UPLOAD_BG        = "rgba(255,255,255,0.035)"
     UPLOAD_BORDER    = "rgba(255,255,255,0.16)"
     TAB_LIST_BG      = "rgba(255,255,255,0.035)"
@@ -63,7 +61,6 @@ else:
     BLOB_2           = "#c4b5fd"
     TEXT             = "#0f172a"
     SUBTEXT          = "#374151"
-    SIDEBAR_BG       = "rgba(241,245,249,0.97)"
     CARD_BG          = "rgba(255,255,255,0.85)"
     CARD_BORDER      = "rgba(99,102,241,0.22)"
     CARD_SHADOW      = "0 8px 24px rgba(99,102,241,0.10)"
@@ -78,7 +75,6 @@ else:
     FLASH_BASE       = "rgba(255,255,255,0.88)"
     FLASH_BORDER     = "rgba(99,102,241,0.22)"
     QUIZ_BG          = "rgba(255,255,255,0.78)"
-    INPUT_BG         = "rgba(255,255,255,0.88)"
     UPLOAD_BG        = "rgba(255,255,255,0.68)"
     UPLOAD_BORDER    = "rgba(99,102,241,0.28)"
     TAB_LIST_BG      = "rgba(255,255,255,0.68)"
@@ -94,11 +90,10 @@ else:
     ANSWER_COLOR     = "#16a34a"
 
 # ─────────────────────────────────────────────
-#  INJECT CSS  — all values are plain strings, no JS, no data-theme trick
+#  CSS
 # ─────────────────────────────────────────────
 st.markdown(f"""
 <style>
-    /* GLOBAL */
     .stApp {{
         background: {BG_MAIN} !important;
         color: {TEXT} !important;
@@ -111,7 +106,6 @@ st.markdown(f"""
         animation: pageFade 0.9s ease;
     }}
 
-    /* BLOBS */
     .stApp::before, .stApp::after {{
         content: "";
         position: fixed;
@@ -126,13 +120,12 @@ st.markdown(f"""
     .stApp::before {{ background: {BLOB_1}; top: -80px; left: -100px; }}
     .stApp::after  {{ background: {BLOB_2}; bottom: -100px; right: -80px; animation-delay: 3s; }}
 
-    /* HERO */
     .hero {{
         position: relative; overflow: hidden;
         padding: 2.4rem 2.2rem 2rem;
         border-radius: 28px;
         background:
-            radial-gradient(circle at top left,    {HERO_BG1}, transparent 35%),
+            radial-gradient(circle at top left, {HERO_BG1}, transparent 35%),
             radial-gradient(circle at bottom right, {HERO_BG2}, transparent 35%),
             linear-gradient(135deg, {HERO_GLASS}, {HERO_GLASS2});
         border: 1px solid {HERO_BORDER};
@@ -159,14 +152,12 @@ st.markdown(f"""
     }}
     .hero p {{ font-size: 1.06rem; color: {SUBTEXT}; margin-bottom: 0.2rem; }}
 
-    /* SECTION TITLE */
     .section-title {{
         font-size: 1.55rem; font-weight: 800;
         margin-bottom: 1rem; color: {SECTION_TITLE};
         animation: fadeInUp 0.8s ease;
     }}
 
-    /* CUSTOM CARD */
     .custom-card {{
         position: relative; overflow: hidden;
         background: {CARD_BG};
@@ -191,11 +182,9 @@ st.markdown(f"""
         animation: shineSweep 5s infinite linear;
     }}
     .custom-card h3 {{ font-size: 1.15rem; font-weight: 800; margin-bottom: 0.75rem; color: {TEXT}; }}
-    .custom-card ul  {{ padding-left: 1.2rem; margin: 0; color: {SUBTEXT}; line-height: 2; }}
-    .custom-card ul li {{ margin-bottom: 0.2rem; }}
-    .custom-card p  {{ color: {SUBTEXT}; margin: 0; line-height: 1.7; }}
+    .custom-card ul {{ padding-left: 1.2rem; margin: 0; color: {SUBTEXT}; line-height: 2; }}
+    .custom-card p {{ color: {SUBTEXT}; margin: 0; line-height: 1.7; }}
 
-    /* STREAMLIT CONTAINER BORDER WRAPPER */
     div[data-testid="stVerticalBlockBorderWrapper"] {{
         background: {WRAPPER_BG} !important;
         border: 1px solid {WRAPPER_BORDER} !important;
@@ -211,67 +200,93 @@ st.markdown(f"""
         border-color: rgba(96,165,250,0.35) !important;
     }}
 
-    /* FLASHCARD */
-    .flashcard {{
-        background:
-            radial-gradient(circle at top left,    {FLASH_BG1}, transparent 35%),
-            radial-gradient(circle at bottom right, {FLASH_BG2}, transparent 35%),
-            {FLASH_BASE};
-        border: 1px solid {FLASH_BORDER};
-        border-radius: 24px; padding: 1.35rem; margin-bottom: 1rem; min-height: 180px;
-        box-shadow: 0 14px 34px rgba(0,0,0,0.10);
-        animation: fadeInUp 0.8s ease;
-        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        transform-style: preserve-3d; backdrop-filter: blur(12px);
+    /* ===== CYBERPUNK INPUT ===== */
+    div[data-testid="stTextArea"] label p {{
+        font-size: 0px !important;
+        margin-bottom: 0 !important;
     }}
-    .flashcard:hover {{
-        transform: perspective(1000px) rotateX(6deg) rotateY(-6deg) translateY(-6px) scale(1.02);
-        box-shadow: 0 22px 45px rgba(59,130,246,0.22);
-        border-color: rgba(139,92,246,0.35);
+    .cyber-label {{
+        display: inline-block;
+        margin-bottom: 10px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #c4b5fd;
+        background: rgba(139, 92, 246, 0.12);
+        border: 1px solid rgba(168, 85, 247, 0.35);
+        box-shadow: 0 0 12px rgba(168,85,247,0.18);
+        letter-spacing: 0.4px;
+        animation: floatGlow 2.8s ease-in-out infinite;
     }}
-    .flashcard-title {{ font-size: 1.4rem; font-weight: 800; margin-bottom: 0.8rem; color: {TEXT}; }}
+    .cyber-chips {{
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+    }}
+    .cyber-chip {{
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.05);
+        color: rgba(255,255,255,0.88);
+        font-size: 13px;
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 0 10px rgba(168,85,247,0.08);
+    }}
+    div[data-testid="stTextArea"] {{
+        position: relative;
+        border-radius: 26px;
+        padding: 2px;
+        background: linear-gradient(135deg, rgba(59,130,246,0.95), rgba(168,85,247,0.95), rgba(236,72,153,0.95));
+        box-shadow: 0 0 14px rgba(139,92,246,0.35), 0 0 32px rgba(59,130,246,0.18);
+        animation: neonPulse 3s ease-in-out infinite;
+        overflow: hidden;
+        margin-top: 6px;
+    }}
+    div[data-testid="stTextArea"] > div {{
+        background: rgba(15, 23, 42, 0.92) !important;
+        backdrop-filter: blur(18px);
+        border-radius: 24px !important;
+        padding: 18px !important;
+    }}
+    div[data-testid="stTextArea"] textarea {{
+        background: transparent !important;
+        color: #ffffff !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        font-size: 15px !important;
+        line-height: 1.8 !important;
+        border-radius: 18px !important;
+        min-height: 280px !important;
+        resize: vertical !important;
+        padding: 10px 4px 10px 4px !important;
+        caret-color: #a855f7 !important;
+        font-family: "Inter", sans-serif !important;
+    }}
+    div[data-testid="stTextArea"] textarea::placeholder {{
+        color: rgba(255,255,255,0.42) !important;
+        font-size: 14px !important;
+        line-height: 1.7 !important;
+    }}
+    div[data-testid="stTextArea"]:has(textarea:focus) {{
+        box-shadow: 0 0 18px rgba(168,85,247,0.55), 0 0 38px rgba(59,130,246,0.22), 0 0 60px rgba(236,72,153,0.12);
+        transform: translateY(-2px) scale(1.005);
+        transition: all 0.25s ease;
+    }}
+    div[data-testid="stTextArea"] textarea::-webkit-scrollbar {{ width: 8px; }}
+    div[data-testid="stTextArea"] textarea::-webkit-scrollbar-track {{ background: rgba(255,255,255,0.04); border-radius: 999px; }}
+    div[data-testid="stTextArea"] textarea::-webkit-scrollbar-thumb {{ background: linear-gradient(180deg, #3b82f6, #a855f7, #ec4899); border-radius: 999px; }}
+    .cyber-helper {{
+        margin-top: 10px;
+        font-size: 13px;
+        color: rgba(255,255,255,0.55);
+        padding-left: 4px;
+    }}
 
-    /* SUMMARY CARD */
-    .summary-card {{
-        position: relative; overflow: hidden;
-        background:
-            radial-gradient(circle at top left,    {FLASH_BG1}, transparent 35%),
-            radial-gradient(circle at bottom right, {FLASH_BG2}, transparent 35%),
-            {FLASH_BASE};
-        border: 1px solid {FLASH_BORDER};
-        border-radius: 24px; padding: 1.5rem 1.7rem; margin-bottom: 1.1rem;
-        box-shadow: 0 14px 34px rgba(0,0,0,0.10);
-        animation: fadeInUp 0.8s ease;
-        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-        transform-style: preserve-3d; backdrop-filter: blur(12px);
-    }}
-    .summary-card:hover {{
-        transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(-6px) scale(1.015);
-        box-shadow: 0 22px 45px rgba(59,130,246,0.22);
-        border-color: rgba(139,92,246,0.35);
-    }}
-    .summary-card::before {{
-        content: "";
-        position: absolute; top: 0; left: -120%;
-        width: 40%; height: 100%;
-        background: linear-gradient(120deg, transparent, {SHINE}, transparent);
-        animation: shineSweep 5s infinite linear;
-    }}
-    .summary-card h3 {{
-        font-size: 1.2rem; font-weight: 800; margin-bottom: 0.75rem;
-        background: linear-gradient(90deg, #60a5fa, #a78bfa);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    }}
-    .summary-card ul {{ padding-left: 1.2rem; margin: 0; color: {SUBTEXT}; line-height: 2; }}
-    .summary-card ul li {{ margin-bottom: 0.2rem; }}
-
-    /* KEY TERM CARD */
-    .keyterm-card {{
-        position: relative; overflow: hidden;
-        background:
-            radial-gradient(circle at top right,  {FLASH_BG2}, transparent 35%),
-            radial-gradient(circle at bottom left, {FLASH_BG1}, transparent 35%),
-            {FLASH_BASE};
+    .flashcard, .summary-card, .keyterm-card {{
+        background: radial-gradient(circle at top left, {FLASH_BG1}, transparent 35%), radial-gradient(circle at bottom right, {FLASH_BG2}, transparent 35%), {FLASH_BASE};
         border: 1px solid {FLASH_BORDER};
         border-radius: 24px; padding: 1.35rem; margin-bottom: 1rem;
         box-shadow: 0 14px 34px rgba(0,0,0,0.10);
@@ -279,18 +294,18 @@ st.markdown(f"""
         transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         transform-style: preserve-3d; backdrop-filter: blur(12px);
     }}
-    .keyterm-card:hover {{
-        transform: perspective(1000px) rotateX(6deg) rotateY(6deg) translateY(-6px) scale(1.02);
-        box-shadow: 0 22px 45px rgba(139,92,246,0.22);
-        border-color: rgba(96,165,250,0.35);
+    .flashcard:hover, .summary-card:hover, .keyterm-card:hover {{
+        transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(-6px) scale(1.015);
+        box-shadow: 0 22px 45px rgba(59,130,246,0.22);
+        border-color: rgba(139,92,246,0.35);
     }}
-    .keyterm-card::before {{
-        content: "";
-        position: absolute; top: 0; left: -120%;
-        width: 40%; height: 100%;
-        background: linear-gradient(120deg, transparent, {SHINE}, transparent);
-        animation: shineSweep 5.5s infinite linear;
+    .flashcard-title {{ font-size: 1.4rem; font-weight: 800; margin-bottom: 0.8rem; color: {TEXT}; }}
+    .summary-card h3 {{
+        font-size: 1.2rem; font-weight: 800; margin-bottom: 0.75rem;
+        background: linear-gradient(90deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }}
+    .summary-card ul {{ padding-left: 1.2rem; margin: 0; color: {SUBTEXT}; line-height: 2; }}
     .keyterm-card h3 {{
         font-size: 1.15rem; font-weight: 800; margin-bottom: 0.6rem;
         background: linear-gradient(90deg, #a78bfa, #f472b6);
@@ -298,7 +313,6 @@ st.markdown(f"""
     }}
     .keyterm-card p {{ color: {SUBTEXT}; margin: 0; line-height: 1.7; }}
 
-    /* QUIZ */
     .quiz-box {{
         background: {QUIZ_BG};
         border-left: 4px solid #60a5fa;
@@ -308,7 +322,6 @@ st.markdown(f"""
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         color: {TEXT};
     }}
-    .quiz-box h4 {{ color: {TEXT}; }}
     .quiz-box:hover {{ transform: translateX(4px); box-shadow: 0 14px 28px rgba(59,130,246,0.16); }}
     .answer-box {{
         background: rgba(34,197,94,0.12);
@@ -318,7 +331,6 @@ st.markdown(f"""
         animation: fadeInUp 0.4s ease;
     }}
 
-    /* BUTTONS */
     .stButton > button {{
         width: 100%; border-radius: 16px; height: 3.3em;
         font-size: 1rem; font-weight: 800; border: none;
@@ -328,11 +340,7 @@ st.markdown(f"""
         animation: gradientShift 6s ease infinite, pulseGlow 2.8s infinite ease-in-out;
         transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease;
     }}
-    .stButton > button:hover {{
-        transform: translateY(-3px) scale(1.015);
-        box-shadow: 0 16px 32px rgba(139,92,246,0.35);
-        filter: brightness(1.05);
-    }}
+    .stButton > button:hover {{ transform: translateY(-3px) scale(1.015); box-shadow: 0 16px 32px rgba(139,92,246,0.35); filter: brightness(1.05); }}
     .stButton > button:active {{ transform: scale(0.985); }}
 
     .stDownloadButton > button {{
@@ -342,15 +350,9 @@ st.markdown(f"""
         background-size: 250% 250%; color: white;
         box-shadow: 0 10px 24px rgba(16,185,129,0.24);
         animation: gradientShift 7s ease infinite, floatSoft 4s ease-in-out infinite;
-        transition: transform 0.16s ease, box-shadow 0.16s ease;
-    }}
-    .stDownloadButton > button:hover {{
-        transform: translateY(-3px) scale(1.015);
-        box-shadow: 0 16px 30px rgba(16,185,129,0.32);
     }}
 
-    /* GLASSMORPHISM SIDEBAR */
-        section[data-testid="stSidebar"] {{
+    section[data-testid="stSidebar"] {{
         background: rgba(255, 255, 255, 0.08) !important;
         backdrop-filter: blur(18px) saturate(180%);
         -webkit-backdrop-filter: blur(18px) saturate(180%);
@@ -359,39 +361,16 @@ st.markdown(f"""
         position: relative;
         overflow: hidden;
     }}
-
-    /* SIDEBAR SHINE EFFECT */
-        section[data-testid="stSidebar"]::before {{
+    section[data-testid="stSidebar"]::before {{
         content: "";
         position: absolute;
-        top: 0;
-        left: -120%;
-        width: 60%;
-        height: 100%;
-        background: linear-gradient(
-            120deg,
-            transparent,
-            rgba(255,255,255,0.12),
-            transparent
-        );
+        top: 0; left: -120%;
+        width: 60%; height: 100%;
+        background: linear-gradient(120deg, transparent, rgba(255,255,255,0.12), transparent);
         animation: sidebarShine 6s linear infinite;
         pointer-events: none;
     }}
-
-    /* SIDEBAR TEXT */
-    section[data-testid="stSidebar"] * {{
-        color: {TEXT} !important;
-    }}
-        section[data-testid="stSidebar"] * {{ color: {TEXT} !important; }}
-
-    /* INPUTS */
-    textarea {{
-        border-radius: 18px !important;
-        background: {INPUT_BG} !important;
-        color: {TEXT} !important;
-        transition: all 0.2s ease !important;
-    }}
-    textarea:focus {{ box-shadow: 0 0 0 2px rgba(96,165,250,0.35) !important; }}
+    section[data-testid="stSidebar"] * {{ color: {TEXT} !important; }}
 
     section[data-testid="stFileUploader"] {{
         background: {UPLOAD_BG};
@@ -400,28 +379,17 @@ st.markdown(f"""
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         animation: fadeInUp 0.8s ease;
     }}
-    section[data-testid="stFileUploader"]:hover {{
-        transform: translateY(-3px);
-        box-shadow: 0 14px 30px rgba(59,130,246,0.12);
-    }}
+    section[data-testid="stFileUploader"]:hover {{ transform: translateY(-3px); box-shadow: 0 14px 30px rgba(59,130,246,0.12); }}
 
-    /* METRICS */
     [data-testid="metric-container"] {{
         background: {METRIC_BG};
         border: 1px solid {METRIC_BORDER};
         padding: 1rem; border-radius: 18px;
         box-shadow: {CARD_SHADOW};
-        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         animation: fadeInUp 0.7s ease; backdrop-filter: blur(10px);
         color: {TEXT} !important;
     }}
-    [data-testid="metric-container"]:hover {{
-        transform: translateY(-4px) scale(1.02);
-        box-shadow: 0 16px 34px rgba(59,130,246,0.16);
-        border-color: rgba(96,165,250,0.28);
-    }}
 
-    /* TABS */
     .stTabs [data-baseweb="tab-list"] {{
         gap: 10px; background: {TAB_LIST_BG}; padding: 0.5rem;
         border-radius: 18px; border: 1px solid {TAB_LIST_BORDER};
@@ -437,7 +405,6 @@ st.markdown(f"""
         transform: translateY(-2px);
     }}
 
-    /* PROGRESS BAR */
     [data-testid="stProgressBar"] > div > div > div {{
         background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899) !important;
         background-size: 250% 250%;
@@ -445,43 +412,27 @@ st.markdown(f"""
         border-radius: 999px;
     }}
 
-    /* GLOBAL TEXT COLOUR OVERRIDE */
     .stApp, .stApp p, .stApp label, .stApp span,
     .stApp div, .stApp h1, .stApp h2, .stApp h3,
-    .stApp h4, .stApp h5, .stApp h6 {{
-        color: {TEXT};
-    }}
+    .stApp h4, .stApp h5, .stApp h6 {{ color: {TEXT}; }}
 
-    /* HIDE STREAMLIT HEADING ANCHOR ICONS */
-a[href^="#"] {{
-    display: none !important;
-}}
+    a[href^="#"], h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {{ display: none !important; }}
+    [data-testid="stMarkdownContainer"] a {{ text-decoration: none !important; }}
 
-h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {{
-    display: none !important;
-}}
-
-[data-testid="stMarkdownContainer"] a {{
-    text-decoration: none !important;
-}}
-
-    /* ANIMATIONS */
-    @keyframes pageFade   {{ from {{ opacity:0; transform:translateY(8px);  }} to {{ opacity:1; transform:translateY(0); }} }}
+    @keyframes pageFade   {{ from {{ opacity:0; transform:translateY(8px); }} to {{ opacity:1; transform:translateY(0); }} }}
     @keyframes fadeInUp   {{ from {{ opacity:0; transform:translateY(18px); }} to {{ opacity:1; transform:translateY(0); }} }}
-    @keyframes floatSoft  {{ 0%,100% {{ transform:translateY(0);   }} 50% {{ transform:translateY(-5px); }} }}
+    @keyframes floatSoft  {{ 0%,100% {{ transform:translateY(0); }} 50% {{ transform:translateY(-5px); }} }}
     @keyframes floatBlob  {{ 0%,100% {{ transform:translate(0,0) scale(1); }} 50% {{ transform:translate(30px,-20px) scale(1.08); }} }}
-    @keyframes pulseGlow  {{
-        0%,100% {{ box-shadow: 0 0 0px rgba(139,92,246,0), 0 0 0px rgba(59,130,246,0); }}
-        50%     {{ box-shadow: 0 0 28px rgba(139,92,246,.35), 0 0 36px rgba(59,130,246,.22); }}
-    }}
+    @keyframes pulseGlow  {{ 0%,100% {{ box-shadow: 0 0 0px rgba(139,92,246,0), 0 0 0px rgba(59,130,246,0); }} 50% {{ box-shadow: 0 0 28px rgba(139,92,246,.35), 0 0 36px rgba(59,130,246,.22); }} }}
     @keyframes gradientShift {{ 0% {{ background-position:0% 50%; }} 50% {{ background-position:100% 50%; }} 100% {{ background-position:0% 50%; }} }}
     @keyframes shineSweep    {{ 0% {{ transform:translateX(-120%); }} 100% {{ transform:translateX(220%); }} }}
+    @keyframes neonPulse {{ 0% {{ box-shadow: 0 0 14px rgba(139,92,246,0.35), 0 0 32px rgba(59,130,246,0.18); }} 50% {{ box-shadow: 0 0 18px rgba(168,85,247,0.55), 0 0 42px rgba(236,72,153,0.20); }} 100% {{ box-shadow: 0 0 14px rgba(139,92,246,0.35), 0 0 32px rgba(59,130,246,0.18); }} }}
+    @keyframes floatGlow {{ 0% {{ transform: translateY(0px); }} 50% {{ transform: translateY(-2px); }} 100% {{ transform: translateY(0px); }} }}
+    @keyframes sidebarShine {{ 0% {{ transform:translateX(-120%); }} 100% {{ transform:translateX(260%); }} }}
 </style>
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────
-#  HERO
-# ─────────────────────────────────────────────
+# HERO
 st.markdown("""
 <div class="hero">
     <h1>📚 NoteSprint AI</h1>
@@ -492,9 +443,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────
-#  SIDEBAR
-# ─────────────────────────────────────────────
+# SIDEBAR
 st.sidebar.title("⚙️ Settings")
 
 toggle_label = "☀️ Light Mode" if IS_DARK else "🌙 Dark Mode"
@@ -503,22 +452,14 @@ if st.sidebar.button(toggle_label, use_container_width=True):
     st.rerun()
 
 st.sidebar.markdown("---")
-difficulty = st.sidebar.segmented_control(
-    "Quiz Difficulty",
-    ["Easy", "Medium", "Hard"],
-    default="Medium"
-)
-
+difficulty = st.sidebar.segmented_control("Quiz Difficulty", ["Easy", "Medium", "Hard"], default="Medium")
 num_questions = st.sidebar.slider("Number of Questions", 5, 100, 10, step=5)
-show_answers  = st.sidebar.toggle("Show Answers by Default", value=False)
+show_answers = st.sidebar.toggle("Show Answers by Default", value=False)
 st.sidebar.markdown("---")
 st.sidebar.caption("Tip: Use clean lecture notes or textbook text for best results.")
 
-# ─────────────────────────────────────────────
-#  MAIN WORKSPACE
-# ─────────────────────────────────────────────
+# MAIN WORKSPACE
 st.markdown('<div class="section-title">📥 Input Your Study Material</div>', unsafe_allow_html=True)
-
 left, right = st.columns([2.2, 1], gap="large")
 user_text = ""
 
@@ -527,10 +468,27 @@ with left:
         input_method = st.radio("Choose input method:", ["Paste Text", "Upload File"], horizontal=True)
 
         if input_method == "Paste Text":
+            st.markdown("""
+            <div class="cyber-chips">
+                <div class="cyber-chip">⚡ AI-ready</div>
+                <div class="cyber-chip">📚 Notes / Textbook / Lecture</div>
+                <div class="cyber-chip">🧠 Best for revision</div>
+            </div>
+            <div class="cyber-label">✍️ Smart Notes Input</div>
+            """, unsafe_allow_html=True)
+
             user_text = st.text_area(
-                "Paste your notes here:", height=320,
-                placeholder="Paste your notes, lecture content, textbook chapter, or study material here..."
+                "notes_input_hidden_label",
+                placeholder="Paste your class notes, textbook chapter, lecture summary, or study material here...\n\nExample:\n• Photosynthesis process\n• Important definitions\n• Key exam concepts\n• Formulas / diagrams explained",
+                height=320,
+                key="notes_input"
             )
+
+            st.markdown("""
+            <div class="cyber-helper">
+            💡 Tip: Cleaner and longer notes = better summaries, flashcards, and quizzes.
+            </div>
+            """, unsafe_allow_html=True)
         else:
             uploaded_file = st.file_uploader("Upload a TXT or PDF file", type=["txt", "pdf"])
             if uploaded_file:
@@ -543,7 +501,12 @@ with left:
                     with st.expander("Preview Extracted Text"):
                         st.write(user_text[:3000])
 
-        st.markdown("### Generate your study pack")
+        st.markdown("""
+        <div style="margin-top: 18px; margin-bottom: 12px; font-size: 1.15rem; font-weight: 800; color: white; letter-spacing: 0.3px;">
+        ⚡ Generate your AI Study Pack
+        </div>
+        """, unsafe_allow_html=True)
+
         if st.button("🚀 Generate Study Pack", use_container_width=True):
             if not user_text.strip():
                 st.warning("Please provide some study material first.")
@@ -557,10 +520,10 @@ with left:
 
                 progress = st.progress(0, text="Starting AI generation...")
                 try:
-                    time.sleep(0.4);  progress.progress(20, text="📚 Reading and understanding notes...")
-                    time.sleep(0.8);  progress.progress(45, text="📝 Creating structured summary...")
-                    time.sleep(0.8);  progress.progress(70, text="📖 Extracting key terms...")
-                    time.sleep(0.8);  progress.progress(85, text="❓ Generating quiz questions...")
+                    time.sleep(0.4); progress.progress(20, text="📚 Reading and understanding notes...")
+                    time.sleep(0.8); progress.progress(45, text="📝 Creating structured summary...")
+                    time.sleep(0.8); progress.progress(70, text="📖 Extracting key terms...")
+                    time.sleep(0.8); progress.progress(85, text="❓ Generating quiz questions...")
 
                     result = generate_study_pack(user_text, difficulty, num_questions)
 
@@ -597,9 +560,7 @@ with right:
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────
-#  RESULTS
-# ─────────────────────────────────────────────
+# RESULTS
 if "result" in st.session_state:
     result = st.session_state["result"]
     if not result:
@@ -610,14 +571,10 @@ if "result" in st.session_state:
 
     m1, m2, m3 = st.columns(3)
     with m1: st.metric("Summary Sections", len(result.get("summary", [])))
-    with m2: st.metric("Key Terms",         len(result.get("keyTerms", [])))
-    with m3: st.metric("Quiz Questions",    len(result.get("quiz", [])))
+    with m2: st.metric("Key Terms", len(result.get("keyTerms", [])))
+    with m3: st.metric("Quiz Questions", len(result.get("quiz", [])))
 
-    st.markdown("")
-
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(
-        ["📝 Summary", "📖 Key Terms", "🃏 Flashcards", "❓ Quiz", "📄 Export"]
-    )
+    tab1, tab2, tab3, tab4, tab5 = st.tabs(["📝 Summary", "📖 Key Terms", "🃏 Flashcards", "❓ Quiz", "📄 Export"])
 
     with tab1:
         for section in result.get("summary", []):
@@ -684,7 +641,8 @@ if "result" in st.session_state:
         pdf_file = create_pdf(result)
         st.download_button(
             label="📥 Download Revision PDF",
-            data=pdf_file, file_name="study_pack.pdf", mime="application/pdf"
+            data=pdf_file,
+            file_name="study_pack.pdf",
+            mime="application/pdf"
         )
-        st.markdown("")
         st.info("Tip: Download this PDF before your exam for quick revision.")
