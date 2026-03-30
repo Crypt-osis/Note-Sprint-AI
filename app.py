@@ -23,7 +23,7 @@ IS_DARK = st.session_state["theme"] == "dark"
 #  THEME TOKENS  — picked in Python, injected into CSS as plain values
 # ─────────────────────────────────────────────
 if IS_DARK:
-    BG_MAIN          = "linear-gradient(135deg, #0f172a, #111827)"
+    BG_MAIN          ="linear-gradient(315deg, #04010F, #302B38)"
     BLOB_1           = "#3b82f6"
     BLOB_2           = "#8b5cf6"
     TEXT             = "#ffffff"
@@ -349,13 +349,40 @@ st.markdown(f"""
         box-shadow: 0 16px 30px rgba(16,185,129,0.32);
     }}
 
-    /* SIDEBAR */
-    section[data-testid="stSidebar"] {{
-        background: {SIDEBAR_BG} !important;
-        border-right: 1px solid {CARD_BORDER};
-        backdrop-filter: blur(14px);
+    /* GLASSMORPHISM SIDEBAR */
+        section[data-testid="stSidebar"] {{
+        background: rgba(255, 255, 255, 0.08) !important;
+        backdrop-filter: blur(18px) saturate(180%);
+        -webkit-backdrop-filter: blur(18px) saturate(180%);
+        border-right: 1px solid rgba(255, 255, 255, 0.14) !important;
+        box-shadow: 8px 0 32px rgba(31, 38, 135, 0.18);
+        position: relative;
+        overflow: hidden;
     }}
-    section[data-testid="stSidebar"] * {{ color: {TEXT} !important; }}
+
+    /* SIDEBAR SHINE EFFECT */
+        section[data-testid="stSidebar"]::before {{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -120%;
+        width: 60%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255,255,255,0.12),
+            transparent
+        );
+        animation: sidebarShine 6s linear infinite;
+        pointer-events: none;
+    }}
+
+    /* SIDEBAR TEXT */
+    section[data-testid="stSidebar"] * {{
+        color: {TEXT} !important;
+    }}
+        section[data-testid="stSidebar"] * {{ color: {TEXT} !important; }}
 
     /* INPUTS */
     textarea {{
@@ -425,6 +452,19 @@ st.markdown(f"""
         color: {TEXT};
     }}
 
+    /* HIDE STREAMLIT HEADING ANCHOR ICONS */
+a[href^="#"] {{
+    display: none !important;
+}}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {{
+    display: none !important;
+}}
+
+[data-testid="stMarkdownContainer"] a {{
+    text-decoration: none !important;
+}}
+
     /* ANIMATIONS */
     @keyframes pageFade   {{ from {{ opacity:0; transform:translateY(8px);  }} to {{ opacity:1; transform:translateY(0); }} }}
     @keyframes fadeInUp   {{ from {{ opacity:0; transform:translateY(18px); }} to {{ opacity:1; transform:translateY(0); }} }}
@@ -463,7 +503,12 @@ if st.sidebar.button(toggle_label, use_container_width=True):
     st.rerun()
 
 st.sidebar.markdown("---")
-difficulty    = st.sidebar.selectbox("Quiz Difficulty", ["Easy", "Medium", "Hard"])
+difficulty = st.sidebar.segmented_control(
+    "Quiz Difficulty",
+    ["Easy", "Medium", "Hard"],
+    default="Medium"
+)
+
 num_questions = st.sidebar.slider("Number of Questions", 5, 100, 10, step=5)
 show_answers  = st.sidebar.toggle("Show Answers by Default", value=False)
 st.sidebar.markdown("---")
