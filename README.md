@@ -74,6 +74,11 @@ Manual revision is:
 
 ---
 
+<img width="1408" height="768" alt="Gemini_Generated_Image_b0fclzb0fclzb0fc" src="https://github.com/user-attachments/assets/e11e3aba-01eb-43e7-995a-37a7b04ae246" />
+
+
+---
+
 ## 🧪 How to Run Locally
 
 ### 1. Clone the repository
