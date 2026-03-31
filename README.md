@@ -85,48 +85,50 @@ Manual revision is:
 
 1) Input Stage
 
-The user provides study material in one of three ways:
+   The user provides study material in one of three ways:
 
-typed/pasted notes
-.txt file upload
-PDF upload
-2) Preprocessing Stage
+   typed/pasted notes
+   .txt file upload
+   PDF upload
+   
+3) Preprocessing Stage
 
-The app converts the uploaded file into clean readable text.
+   The app converts the uploaded file into clean readable text.
 
-For example:
+   For example:
 
-.txt → direct reading
-.pdf → text extraction using Python PDF libraries
+   .txt → direct reading
+   .pdf → text extraction using Python PDF libraries
 
-This ensures the AI receives usable study content.
+   This ensures the AI receives usable study content.
 
-3) Prompt Engineering Stage
+4) Prompt Engineering Stage
 
-The extracted text is placed into separate prompts depending on the task:
+   The extracted text is placed into separate prompts depending on the task:
 
-Summary prompt
-Flashcard prompt
-Quiz prompt
+   Summary prompt
+   Flashcard prompt
+   Quiz prompt
 
-This is important because each output type needs different instructions.
+   This is important because each output type needs different instructions.
 
 4) AI Generation Stage
 
-The app sends the processed prompts to Google Gemini API, which returns:
+   The app sends the processed prompts to Google Gemini API, which returns:
 
-structured summary
-revision flashcards
-MCQ quiz questions
-5) Presentation + Export Stage
+   structured summary
+   revision flashcards
+   MCQ quiz questions
+   
+6) Presentation + Export Stage
 
-The results are displayed inside the app using Streamlit UI.
+   The results are displayed inside the app using Streamlit UI.
 
-Students can then:
+   Students can then:
 
-read the output
-revise from it
-download it as a PDF
+   read the output
+   revise from it
+   download it as a PDF
 
 ## ✅ Architecture Diagram
 
