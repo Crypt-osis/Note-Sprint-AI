@@ -89,7 +89,7 @@ git clone https://github.com/Crypt-osis/Note-Sprint-AI.git
 cd Note-Sprint-AI
 ```
 
-⚙️ Setup Instructions
+## ⚙️ Setup Instructions
 1. Clone the repository
 ```
    git clone https://github.com/your-username/NoteSprint-AI.git
