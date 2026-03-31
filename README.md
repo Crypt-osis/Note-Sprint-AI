@@ -79,6 +79,80 @@ Manual revision is:
 <img width="1408" height="768" alt="Gemini_Generated_Image_b0fclzb0fclzb0fc" src="https://github.com/user-attachments/assets/e11e3aba-01eb-43e7-995a-37a7b04ae246" />
 
 
+## 📌 Project Architecture — NoteSprint AI
+
+## 🏗️ System Architecture
+
+1) Input Stage
+
+The user provides study material in one of three ways:
+
+typed/pasted notes
+.txt file upload
+PDF upload
+2) Preprocessing Stage
+
+The app converts the uploaded file into clean readable text.
+
+For example:
+
+.txt → direct reading
+.pdf → text extraction using Python PDF libraries
+
+This ensures the AI receives usable study content.
+
+3) Prompt Engineering Stage
+
+The extracted text is placed into separate prompts depending on the task:
+
+Summary prompt
+Flashcard prompt
+Quiz prompt
+
+This is important because each output type needs different instructions.
+
+4) AI Generation Stage
+
+The app sends the processed prompts to Google Gemini API, which returns:
+
+structured summary
+revision flashcards
+MCQ quiz questions
+5) Presentation + Export Stage
+
+The results are displayed inside the app using Streamlit UI.
+
+Students can then:
+
+read the output
+revise from it
+download it as a PDF
+
+## ✅ Architecture Diagram
+
+
+<img width="1024" height="1536" alt="ChatGPT Image Mar 31, 2026, 11_05_05 AM" src="https://github.com/user-attachments/assets/a612b60b-751f-4f73-9e6e-48b9c48a5072" />
+
+
+## 🏗️ Architecture Notes
+
+NoteSprint AI is built as a lightweight AI-powered study assistant using a modular architecture.
+
+### Main Modules:
+- **Input Module** → accepts pasted notes, `.txt`, and PDF files
+- **Text Extraction Module** → extracts readable text from uploaded files
+- **Prompt Engineering Module** → formats text into task-specific prompts
+- **LLM Module** → sends prompts to Google Gemini API
+- **Output Module** → displays summary, flashcards, and quiz
+- **Export Module** → generates downloadable PDF output
+
+### Data Flow:
+User Input → Text Processing → Prompt Engineering → Gemini API → Output Rendering → PDF Export
+
+### Architecture Style:
+- Simple monolithic web app
+- AI API-integrated pipeline
+- Lightweight and hackathon-friendly design
 ---
 
 ## 🧪 How to Run Locally
