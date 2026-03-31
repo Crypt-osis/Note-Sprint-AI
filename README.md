@@ -55,7 +55,12 @@ Manual revision is:
 ---
 ## 📸 Screenshots
 
+<img width="1920" height="1080" alt="Screenshot (395)" src="https://github.com/user-attachments/assets/4b3df594-d6f0-4f1d-abaa-dc67a0d7a6e3" />
 <img width="1920" height="1080" alt="Screenshot (390)" src="https://github.com/user-attachments/assets/e0090894-e2bd-47b1-8f13-1fa23a5b6ed9" />
+<img width="1920" height="1080" alt="Screenshot (391)" src="https://github.com/user-attachments/assets/8315ec09-a38b-4291-98b4-72fec7aa20e4" />
+<img width="1920" height="1080" alt="Screenshot (392)" src="https://github.com/user-attachments/assets/9d51e947-b674-4deb-82be-42ed7d892798" />
+<img width="1920" height="1080" alt="Screenshot (393)" src="https://github.com/user-attachments/assets/d8cf26d9-59da-489b-8514-e7efe04e863d" />
+<img width="1920" height="1080" alt="Screenshot (394)" src="https://github.com/user-attachments/assets/895c9ac5-b37a-4172-b641-ede838f25725" />
 
 ---
 ## 🛠 Tech Stack
