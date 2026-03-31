@@ -50,6 +50,10 @@ Manual revision is:
 
 ---
 
+## 🌐 Live Demo
+   https://note-sprint-ai-cs6o3nnqbymsqeazqygya7.streamlit.app/
+
+---
 ## 🛠 Tech Stack
 
 - **Frontend/UI:** Streamlit
