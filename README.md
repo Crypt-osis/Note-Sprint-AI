@@ -87,3 +87,86 @@ Manual revision is:
 ```bash
 git clone https://github.com/Crypt-osis/Note-Sprint-AI.git
 cd Note-Sprint-AI
+```
+
+
+## ❓ FAQ
+
+### 1) What does this project do?
+NoteSprint AI helps students convert long lecture notes, textbook excerpts, or uploaded study material into concise, revision-friendly study resources such as summaries, flashcards, and quizzes.
+
+---
+
+### 2) What kind of input does the app accept?
+The app accepts:
+- Pasted text notes
+- `.txt` files
+- Text-based PDF files
+
+---
+
+### 3) Can I upload scanned PDFs or image-based PDFs?
+Not reliably. The current version works best with **text-based PDFs**. If a PDF is scanned like an image, text extraction may fail or produce incomplete output.
+
+---
+
+### 4) What outputs does the app generate?
+The app can generate:
+- Topic-wise bullet-point summaries
+- Flashcards for quick revision
+- Multiple-choice quiz questions
+- Downloadable PDF study material
+
+---
+
+### 5) Which AI model is used in this project?
+This project uses the **Google Gemini API** to generate educational outputs from the provided study content.
+
+---
+
+### 6) Do I need an API key to run the app locally?
+Yes. You need a valid **Google Gemini API key** and must add it to your `.env` file.
+
+Example:
+
+```env
+GOOGLE_API_KEY=your_api_key_here
+```
+---
+
+7) Why am I getting an “API key not valid” error?
+
+This usually happens if:
+
+the API key is incorrect
+the Gemini API is not enabled
+the .env file is missing or not loaded properly
+
+Make sure your key is active and correctly configured.
+
+---
+
+8) Is this project free to use?
+
+The code is open-source for hackathon/demo purposes, but actual API usage depends on your Google Gemini API quota and usage limits.
+
+---
+
+9) Can this project work for any subject?
+
+Yes. It is designed to work with most educational text such as:
+
+Biology
+Physics
+History
+Computer Science
+Lecture notes
+Exam revision material
+
+Output quality depends on the clarity and quality of the input text.
+
+---
+
+10) Does the app store user notes or personal data?
+
+No. In the current version, user input is processed only for generating study outputs and is not permanently stored by the app.
