@@ -52,6 +52,10 @@ Manual revision is:
 
 ## 🌐 Live Demo
    https://note-sprint-ai-cs6o3nnqbymsqeazqygya7.streamlit.app/
+---
+## 📸 Screenshots
+
+<img width="1920" height="1080" alt="Screenshot (390)" src="https://github.com/user-attachments/assets/e0090894-e2bd-47b1-8f13-1fa23a5b6ed9" />
 
 ---
 ## 🛠 Tech Stack
