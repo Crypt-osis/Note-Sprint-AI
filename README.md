@@ -89,6 +89,40 @@ git clone https://github.com/Crypt-osis/Note-Sprint-AI.git
 cd Note-Sprint-AI
 ```
 
+⚙️ Setup Instructions
+1. Clone the repository
+```
+   git clone https://github.com/your-username/NoteSprint-AI.git
+   cd NoteSprint-AI
+```
+
+2.Create a virtual environment
+```
+   python -m venv venv
+```
+3. Activate it
+Windows
+```
+   venv\Scripts\activate
+```
+Mac/Linux
+```
+   source venv/bin/activate
+```
+
+4. Install dependencies
+```
+   pip install -r requirements.txt
+```
+6. Add your API key
+   Create a .env file in the root folder and add:
+```
+   GOOGLE_API_KEY=your_api_key_here
+```
+▶️ Run Locally
+```
+streamlit run app.py
+```
 
 ## ❓ FAQ
 
