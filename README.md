@@ -55,12 +55,13 @@ Manual revision is:
 ---
 ## 📸 Screenshots
 
-<img width="1920" height="1080" alt="Screenshot (395)" src="https://github.com/user-attachments/assets/4b3df594-d6f0-4f1d-abaa-dc67a0d7a6e3" />
-<img width="1920" height="1080" alt="Screenshot (390)" src="https://github.com/user-attachments/assets/e0090894-e2bd-47b1-8f13-1fa23a5b6ed9" />
-<img width="1920" height="1080" alt="Screenshot (391)" src="https://github.com/user-attachments/assets/8315ec09-a38b-4291-98b4-72fec7aa20e4" />
-<img width="1920" height="1080" alt="Screenshot (392)" src="https://github.com/user-attachments/assets/9d51e947-b674-4deb-82be-42ed7d892798" />
-<img width="1920" height="1080" alt="Screenshot (393)" src="https://github.com/user-attachments/assets/d8cf26d9-59da-489b-8514-e7efe04e863d" />
-<img width="1920" height="1080" alt="Screenshot (394)" src="https://github.com/user-attachments/assets/895c9ac5-b37a-4172-b641-ede838f25725" />
+<img width="1920" height="957" alt="Screenshot (390)" src="https://github.com/user-attachments/assets/9147ae34-b4e2-4d66-8351-279d9fa9bd0b" />
+<img width="1920" height="952" alt="Screenshot (391)" src="https://github.com/user-attachments/assets/0dee7fae-dfa3-4556-be19-760d03f17bef" />
+<img width="1920" height="949" alt="Screenshot (392)" src="https://github.com/user-attachments/assets/b8c29668-72a6-4368-a7d2-81b47b476dbb" />
+<img width="1920" height="954" alt="Screenshot (393)" src="https://github.com/user-attachments/assets/a4a9374d-87ef-4a4c-ac87-b19e87f2111c" />
+<img width="1920" height="956" alt="Screenshot (394)" src="https://github.com/user-attachments/assets/45c2a42b-3584-47f9-af9f-b3f5c994122a" />
+<img width="1920" height="949" alt="Screenshot (395)" src="https://github.com/user-attachments/assets/f6a8d2f2-084b-428b-8f45-406dd5e15606" />
+
 
 ---
 ## 🛠 Tech Stack
